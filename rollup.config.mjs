@@ -19,35 +19,35 @@ const serveopts = {
 };
 
 const plugins = [
-    nodeResolve(), // Risolve i moduli da node_modules
-    commonjs(), // Converte i moduli CommonJS in ES6
+    nodeResolve(),
+    commonjs(),
     typescript({
       tsconfig: "./tsconfig.json",
       compilerOptions: {
         allowSyntheticDefaultImports: true,
         esModuleInterop: true,
       },
-    }), // Compila TypeScript
-    json(), // Supporta importazioni di file JSON
-    babel({
-      babelHelpers: "bundled", // Usa i helper di Babel in bundle
-      exclude: "node_modules/**", // Esclude i moduli esterni
-      extensions: [".js", ".ts"], // Estensioni da compilare
     }),
-    dev && serve(serveopts), // Serve i file solo in modalità dev
-    !dev && terser(), // Minifica il codice in modalità produzione
+    json(),
+    babel({
+      babelHelpers: "bundled",
+      exclude: "node_modules/**",
+      extensions: [".js", ".ts"],
+    }),
+    dev && serve(serveopts),
+    !dev && terser(),
   ];
   
 
   export default {
-    input: "src/photovoltaic-card.ts", // File di input
+    input: "src/photovoltaic-card.ts",
     output: {
-      dir: "dist", // Cartella di output
-      format: "es", // Formato ES6 per importazioni moderne
-      sourcemap: dev, // Genera mappe delle sorgenti solo in modalità dev
+      dir: "dist",
+      format: "es",
+      sourcemap: false,
     },
-    plugins, // Usa i plugin definiti sopra
+    plugins,
     watch: {
-      clearScreen: false, // Non pulire lo schermo su aggiornamenti
+      clearScreen: false,
     },
   };

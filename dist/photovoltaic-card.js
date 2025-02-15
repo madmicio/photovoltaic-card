@@ -66,10 +66,6 @@ const t=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e);
  * SPDX-License-Identifier: BSD-3-Clause
  */const o={attribute:!0,type:String,converter:u$1,reflect:!1,hasChanged:f$1},r=(t=o,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t);},init(e){return void 0!==e&&this.P(o,void 0,t),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t);}}throw Error("Unsupported decorator location: "+n)};function n(t){return (e,o)=>"object"==typeof o?r(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,r?{...t,wrapped:!0}:t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
 
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
 var suncalc = {exports: {}};
 
 /*
@@ -390,7 +386,6 @@ var suncalc = {exports: {}};
 } (suncalc));
 
 var suncalcExports = suncalc.exports;
-var SunCalc = /*@__PURE__*/getDefaultExportFromCjs(suncalcExports);
 
 function loader() {
   return x`<svg id="Livello_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 139.11">
@@ -3317,7 +3312,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       }; // Valori di default
     }
     // Calcola alba e tramonto usando SunCalc
-    const times = SunCalc.getTimes(new Date(), latitude, longitude);
+    const times = suncalcExports.getTimes(new Date(), latitude, longitude);
     this.dawnTime = times.sunrise.getTime(); // Alba
     this.duskTime = times.sunset.getTime(); // Tramonto
     this.formatDataForWeekApexChart();
@@ -4948,4 +4943,3 @@ __decorate([n({
   type: Number
 })], PhotovoltaicCard.prototype, "_interval", void 0);
 PhotovoltaicCard = PhotovoltaicCard_1 = __decorate([t("photovoltaic-card")], PhotovoltaicCard);
-//# sourceMappingURL=photovoltaic-card.js.map

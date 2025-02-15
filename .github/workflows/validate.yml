@@ -1,0 +1,21 @@
+name: Validate HACS
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate HACS Integration
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Validate HACS compliance
+      - name: Validate HACS configuration
+        uses: hacs/action@main
+        with:
+          category: "plugin"

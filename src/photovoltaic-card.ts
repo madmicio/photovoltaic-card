@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import SunCalc from "suncalc"; // Importa la libreria SunCalc
+// import SunCalc from "suncalc"; // Importa la libreria SunCalc
+import * as SunCalc from "suncalc";
 // import { CARD_VERSION,  DEFAULT_ID, } from "./const";
 import {
   loader,

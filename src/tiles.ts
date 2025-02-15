@@ -201,18 +201,13 @@ export function pvIcon(state) {
             fill: url(#Sfumatura_senza_nome_138);
           }
 
-          .home_meter_st4 {
-            fill: url(#sfumatura_traliccio);
-          }
+
 
           .home_meter_st5 {
             fill: url(#Sfumatura_senza_nome_137);
           }
         </style>
-        <linearGradient id="sfumatura_traliccio" data-name="sfumatura traliccio" x1="150.45" y1="-8.54" x2="49.91" y2="207.72" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#959c98"/>
-          <stop offset="1" stop-color="#254344"/>
-        </linearGradient>
+
         <linearGradient id="Sfumatura_senza_nome_137" data-name="Sfumatura senza nome 137" x1="61.88" y1="105.94" x2="140.49" y2="121.06" gradientUnits="userSpaceOnUse">
           <stop offset="0" stop-color="#dedfdf"/>
           <stop offset="1" stop-color="#9ca09f"/>
@@ -231,7 +226,6 @@ export function pvIcon(state) {
       </defs>
       <g id="casa">
         <g>
-          <path class="home_meter_st4" d="M171.56.08H28.56C13.81,2.08,2.45,13.54.36,28.28c-.01,4.9-.03,9.81-.05,14.72C.23,61.85.07,80.71,0,99.57v2.49c-.05,24.04.09,48.07.82,72.03,2.78,12.03,11.78,21.52,23.75,24.69,49.82,1.71,100.17,1.25,150.03.24,14.23-3.22,24.46-15.5,25.39-30.08V30.62c-1-15.6-12.85-28.64-28.44-30.54Z"/>
           <path class="home_meter_st0" d="M164.07,11.04c-.22-.03-.44-.04-.66-.04H36.73c-.24,0-.49.02-.73.05-12.84,1.9-22.72,11.87-24.7,24.7-.04.25-.05.5-.05.74,0,.63,0,1.26,0,1.9,0,2.54,2.06,4.61,4.6,4.61h168.62c2.54,0,4.6-2.06,4.6-4.6h0c0-.13,0-.26-.01-.4-.97-13.69-11.33-25.14-24.99-26.96Z"/>
           <g>
             <polygon class="home_meter_st5" points="99.89 73.88 138.97 99.68 138.65 145.5 112.43 145.18 112.32 104.63 87.78 104.95 87.68 145.5 61.24 145.18 61.24 99.47 99.89 73.88"/>

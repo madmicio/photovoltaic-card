@@ -855,18 +855,13 @@ function home(totalPower, pvPercentage, batteryPercentage) {
             fill: url(#Sfumatura_senza_nome_138);
           }
 
-          .home_meter_st4 {
-            fill: url(#sfumatura_traliccio);
-          }
+
 
           .home_meter_st5 {
             fill: url(#Sfumatura_senza_nome_137);
           }
         </style>
-        <linearGradient id="sfumatura_traliccio" data-name="sfumatura traliccio" x1="150.45" y1="-8.54" x2="49.91" y2="207.72" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#959c98"/>
-          <stop offset="1" stop-color="#254344"/>
-        </linearGradient>
+
         <linearGradient id="Sfumatura_senza_nome_137" data-name="Sfumatura senza nome 137" x1="61.88" y1="105.94" x2="140.49" y2="121.06" gradientUnits="userSpaceOnUse">
           <stop offset="0" stop-color="#dedfdf"/>
           <stop offset="1" stop-color="#9ca09f"/>
@@ -885,7 +880,6 @@ function home(totalPower, pvPercentage, batteryPercentage) {
       </defs>
       <g id="casa">
         <g>
-          <path class="home_meter_st4" d="M171.56.08H28.56C13.81,2.08,2.45,13.54.36,28.28c-.01,4.9-.03,9.81-.05,14.72C.23,61.85.07,80.71,0,99.57v2.49c-.05,24.04.09,48.07.82,72.03,2.78,12.03,11.78,21.52,23.75,24.69,49.82,1.71,100.17,1.25,150.03.24,14.23-3.22,24.46-15.5,25.39-30.08V30.62c-1-15.6-12.85-28.64-28.44-30.54Z"/>
           <path class="home_meter_st0" d="M164.07,11.04c-.22-.03-.44-.04-.66-.04H36.73c-.24,0-.49.02-.73.05-12.84,1.9-22.72,11.87-24.7,24.7-.04.25-.05.5-.05.74,0,.63,0,1.26,0,1.9,0,2.54,2.06,4.61,4.6,4.61h168.62c2.54,0,4.6-2.06,4.6-4.6h0c0-.13,0-.26-.01-.4-.97-13.69-11.33-25.14-24.99-26.96Z"/>
           <g>
             <polygon class="home_meter_st5" points="99.89 73.88 138.97 99.68 138.65 145.5 112.43 145.18 112.32 104.63 87.78 104.95 87.68 145.5 61.24 145.18 61.24 99.47 99.89 73.88"/>
@@ -1114,7 +1108,7 @@ var styles = i$3`
     }
   }
 
-  ha-card {
+  .ha-card_vertical {
     padding: 16px;
     // display: flex;
     // flex-direction: column;
@@ -1167,9 +1161,7 @@ var styles = i$3`
     width: 100%;
     height: 300px;
   }
-  input[type="range"] {
-    width: 100%;
-  }
+
   button {
     margin-bottom: 10px;
     padding: 5px 10px;
@@ -1182,12 +1174,80 @@ var styles = i$3`
   button:hover {
     background-color: #0056b3;
   }
+  // input[type="range"] {
+  //   width: 100%;
+  // }
+  
 
-  input[type="range"]:focus {
-    outline: transparent;
-  }
+  // input[type="range"]:focus {
+  //   outline: transparent;
+  // }
 
-  input[type="range"]::-webkit-slider-thumb {
+  // input[type="range"]::-webkit-slider-thumb {
+  //   background-color: #255ff4;
+  //   border: 0;
+  //   border-radius: 50%;
+  //   box-shadow:
+  //     -1px -1px 6px #0937aa inset,
+  //     0 -2px 2px 0 #0004,
+  //     2px 2px 6px #0007;
+  //   cursor: pointer;
+  //   position: relative;
+  //   width: 24px;
+  //   height: 24px;
+  //   transition: all var(--transDur) linear;
+  //   z-index: 1;
+  //   -webkit-appearance: none;
+  //   appearance: none;
+  // }
+  // input[type="range"]:focus::-webkit-slider-thumb {
+  //   background-color: #5583f6;
+  //   box-shadow:
+  //     -1px -1px 6px #0937aa inset,
+  //     0 -2px 2px 0 #0004,
+  //     2px 2px 6px #0007;
+  // }
+  // input[type="range"]::-moz-range-thumb {
+  //   background-color: #255ff4;
+  //   border: 0;
+  //   border-radius: 50%;
+  //   box-shadow:
+  //     -1px -1px 6px #0937aa inset,
+  //     0 -2px 2px 0 #0004,
+  //     2px 2px 6px #0007;
+  //   cursor: pointer;
+  //   position: relative;
+  //   width: 24px;
+  //   height: 24px;
+  //   transform: translateZ(1px);
+  //   transition: all var(--transDur) linear;
+  //   z-index: 1;
+  //   -moz-appearance: none;
+  //   appearance: none;
+  // }
+  // input[type="range"]:focus::-moz-range-thumb {
+  //   background-color: #5583f6;
+  //   box-shadow:
+  //     -1px -1px 6px #0937aa inset,
+  //     0 -2px 2px 0 #0004,
+  //     2px 2px 6px #0007;
+  // }
+
+  // input[type="range"]::-moz-focus-outer {
+  //   border: 0;
+  // }
+
+
+
+
+
+
+
+
+
+
+
+input[type="range"]::-webkit-slider-thumb {
     background-color: #255ff4;
     border: 0;
     border-radius: 50%;
@@ -1197,8 +1257,8 @@ var styles = i$3`
       2px 2px 6px #0007;
     cursor: pointer;
     position: relative;
-    width: 24px;
-    height: 24px;
+    // width: 24px;
+    // height: 24px;
     transition: all var(--transDur) linear;
     z-index: 1;
     -webkit-appearance: none;
@@ -1211,35 +1271,29 @@ var styles = i$3`
       0 -2px 2px 0 #0004,
       2px 2px 6px #0007;
   }
-  input[type="range"]::-moz-range-thumb {
-    background-color: #255ff4;
-    border: 0;
-    border-radius: 50%;
-    box-shadow:
-      -1px -1px 6px #0937aa inset,
-      0 -2px 2px 0 #0004,
-      2px 2px 6px #0007;
-    cursor: pointer;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    transform: translateZ(1px);
-    transition: all var(--transDur) linear;
-    z-index: 1;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  input[type="range"]:focus::-moz-range-thumb {
-    background-color: #5583f6;
-    box-shadow:
-      -1px -1px 6px #0937aa inset,
-      0 -2px 2px 0 #0004,
-      2px 2px 6px #0007;
-  }
 
-  input[type="range"]::-moz-focus-outer {
-    border: 0;
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @media (prefers-color-scheme: dark) {
     :host {
@@ -1251,9 +1305,14 @@ var styles = i$3`
     }
   }
 
+
+    .range-container {
+    position: relative;
+    }
   .production_range {
     position: relative;
     height: 70px;
+    // background-color: coral;
   }
 
   .range__ticks {
@@ -1261,10 +1320,19 @@ var styles = i$3`
     align-items: center;
     pointer-events: none;
     position: absolute;
-    top: 28px;
+    // top: 28px;
     left: 12px;
-    width: calc(100% - 28px);
-    height: 100%;
+    width: calc(100% - 36px);
+    height: 100% !important;
+    // background-color: rgba(255, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    /* left: 0; */
+    /* background-color: blueviolet; */
+    height: 3vh;
+    align-content: center;
+    display: flex
+;
   }
   .range__tick,
   .range__tick-text {
@@ -1272,7 +1340,7 @@ var styles = i$3`
   }
   .range__tick {
     color: var(--tick);
-    font-size: 12px;
+    font-size: 1.35vh;
     text-align: center;
     width: 0;
     -webkit-user-select: none;
@@ -1283,34 +1351,64 @@ var styles = i$3`
     transform: translateX(-50%);
   }
 
-  .range-thumb-label {
+  // .range-thumb-label {
+  //   position: absolute;
+  //   width: 16px;
+  //   height: 22px;
+  //   top: 24px; /* Posiziona il label sopra il thumb */
+  //   transform: translateX(-50%);
+  //   // background-color: rgba(255, 0, 0, 0.6);
+  //   color: white;
+  //   padding: 2px 5px;
+  //   border-radius: 4px;
+  //   font-size: 12px;
+  //   pointer-events: none;
+  //   white-space: nowrap;
+  //   z-index: 11;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
+
+   .range-thumb-label {
     position: absolute;
-    width: 16px;
-    height: 22px;
-    top: 24px; /* Posiziona il label sopra il thumb */
+    /* width: 16px; */
+    height: 100%;
+    /* top: 24px; */
     transform: translateX(-50%);
-    // background-color: rgba(255, 0, 0, 0.6);
     color: white;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-size: 12px;
+    /* padding: 2px 5px; */
+    /* border-radius: 4px; */
+    font-size: 1.4vh;
     pointer-events: none;
     white-space: nowrap;
     z-index: 11;
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1 / 1;
+    // background-color: rgba(125, 125, 0, 0.5);
+    margin-left: 0.4%;
   }
+
+  .offset_label {
+  position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    // background-color: rgba(15, 0, 0, 0.2);
+}
 
   .custom-legend-btn {
     background-color: transparent;
     color: white;
-    border: 2px solid transparent;
+    // border: 2px solid transparent;
     padding: 5px 10px;
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    // font-size: 14px;
+    font-size:1.5vh
   }
 
   .custom-legend-btn:hover {
@@ -1330,7 +1428,7 @@ var styles = i$3`
     // animation: blinker 1.5s linear infinite;
   }
 
-  .bottom_bar {
+  .bottom_bar_vertical {
     height: 60px;
     background-color: rgba(125, 125, 125, 0.1);
     border-radius: 12px;
@@ -1375,8 +1473,10 @@ var styles = i$3`
     --mdc-icon-size: 40px;
   }
 
+  
+
   .menu_icon_on {
-    color: var(--state-icon-active-color);
+    color: var(--state-icon-active-color) !important;
   }
 
   .tile-container {
@@ -1397,13 +1497,15 @@ var styles = i$3`
   }
 
   .tile {
-    width: 70px;
-    height: 70px;
     // background-color: red;
     border-radius: 15px;
     -webkit-box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
     box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
   }
+  .tile_vertical {
+    width: 70px;
+    height: 70px;
+}
 
   .weather_attributes {
     display: flex;
@@ -1566,11 +1668,193 @@ var styles = i$3`
     cursor: pointer;
     width:70px;
     height:70px;
-    
-        
-
-
     }
+
+    .ha-card_horizontal {
+    /* padding: 16px; */
+    background: linear-gradient(180deg, #61716e, #253835);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 5vh auto 4vh 14vh;
+    grid-template-areas: 
+        ". title"
+        "pv chart"
+        "daystext chart"
+        "info menu";
+    column-gap: 3vh;
+    padding: 3vh;
+}
+
+
+.main_content_horizontal {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 96%;
+    width: 50%;
+    // background: linear-gradient(180deg, #61716e, #253835);
+    // display: grid;
+    // grid-template-rows: 10% minmax(0, auto) 20%;
+    
+  }
+
+    .tile_horizontal {
+    // width: 18%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+    .title_horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 4vh;
+    font-weight: bold;
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 0.2vh 0.2vh 0.2vh rgba(255, 255, 255, 0.3);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    height: 5vh;
+    margin: 0 10% 3%;
+    grid-area: title;
+    
+    }
+
+    .more_elements_container_horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(125, 125, 125, 0.1);
+    border-radius: 2vh;
+    overflow: auto;
+    // height: 100%;
+    margin: 3vh 13% 5vh;
+    grid-area: pv;
+}
+
+.horizontal_chart_container {
+  width: 50%;
+  height: 96%;
+  display:flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.bottom_bar_horizontal {
+    height: 14vh;
+    background-color: rgba(125, 125, 125, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 2px 2px;
+    border-radius: 12px;
+    // margin-top: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // padding: 0 10%;
+    grid-area: menu;
+    // margin: 3vh 0;
+  }
+
+ .menu_icon_horizontal {
+    cursor: pointer;
+    color: var(--state-icon-color);
+    --mdc-icon-size: 5.5vh;
+  }
+
+  .mainChartHorizonatContainer {
+  // flex-grow:4;
+  background-color: rgba(125, 125, 125, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 2px 2px;
+    border-radius: 12px;
+    // padding: 16px;
+    display: flex; 
+    // height:100%;
+    padding: 4%;
+    // margin-top: 3%;
+    justify-content: space-around;
+    grid-area: chart;
+        margin: 3vh 0;
+
+  }
+
+
+
+
+        .current_percentage {
+        // width: 100%;
+        width: -webkit-fill-available;
+        height: 65%;
+        background-color: rgba(56, 67, 65, 0.7);
+        border-radius: 2vh;
+        overflow: hidden;
+        display: flex;
+        margin-right:20px;
+        align-self: flex-end;
+        box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.2);
+        margin-top: auto;
+        
+        }
+
+        .inner_meter {
+        width: 70%;
+        height: 100%;
+        background-color: red;
+        border-radius: 1.5vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        }
+        .grid {
+            height:auto;
+            width: 100%;
+            background-color: #8ed3f7;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-grow: 2;
+            overflow: hidden;
+            
+        }
+        .battery {
+            // height: 33%;
+            width: 100%;
+            background-color: #f8d25d;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            box-shadow: 0 0px 8px 4px rgba(0, 0, 0, 0.44);
+            overflow: hidden;
+        }
+        .photovoltaic {
+            // height: 33%;
+            width: 100%;
+            background-color: #4ab87e;
+            // align-items: center;
+            justify-content: center;
+            display: flex;
+            box-shadow: 0 0px 8px 4px rgba(0, 0, 0, 0.44);
+            overflow: hidden;
+        }
+        .homePer {
+            width:30%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+
+        }
+
+        
+        .bar_icon {
+          color: rgba(255, 255, 255, 0.3);
+          --mdc-icon-size: 3.5vh;
+          margin-top: 8%;
+        }
 
 
 `;
@@ -1631,6 +1915,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this.weekGridConsumption = 0;
     this.chartMap = null; // Variabile per mantenere l'istanza del grafico
     this.gridWeekTotal = null;
+    this.gridWeek = null;
     this.totalWekkPvProduction = 0;
     this.daysToEvaluate = 7;
     this.disableLeftButtonHeatmap = false;
@@ -1640,6 +1925,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this.dinamicContent = [];
     this.moreElemetsName = "";
     this.moreElemetsFunction = "";
+    this.totalMaxPower = 0;
+    this.sliderHeight = 0;
     this.dynamicFunction = () => "";
     this.updateNavigatorButtonsHeatmap = disableLeftButtonHeatmap => {
       var _a;
@@ -1680,6 +1967,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this._interval = savedSliderValue ? parseInt(savedSliderValue, 10) : (_c = (_b = config.options) === null || _b === void 0 ? void 0 : _b.data_time_period) !== null && _c !== void 0 ? _c : 25;
     // legge le entità in enetities
     this.entities = this.config.entities;
+    this.totalMaxPower = this.entities.reduce((sum, entity) => sum + (entity.max_power || 0), 0) / 1000;
   }
   _generateHash(input) {
     let hash = 0;
@@ -1917,16 +2205,30 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
   }
   // ********************** fine interrogazione singola entità ******************
   render() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-    this.isVericarlCard();
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    const verticalCard = this.isVericarlCard();
     const panelMode = this.isPanelMode();
-    const pv_nemuber = this.config.entities.length;
-    const linesSvg = this.shadowRoot.querySelector(".lines-svg");
-    this.cardCardWidth = Math.round(this.getBoundingClientRect().width);
-    // Inizializza le linee SVG solo se necessario
-    if (linesSvg && linesSvg.querySelectorAll("path").length === 0 && this.activeMenu === "home") {
-      this.initializeLines();
+    const cardHeight = Math.round(this.getBoundingClientRect().height);
+    if (!verticalCard) {
+      this.chartHeight = cardHeight / 2.2;
+      // this.sliderHeight = !verticalCard && panelMode ? (cardHeight / 31.8) : 30;
     }
+    // console.log('sliderRender', this.sliderHeight);
+    const pv_nemuber = this.config.entities.length;
+    // const linesSvg = this.shadowRoot.querySelector(
+    //   ".lines-svg"
+    // ) as SVGSVGElement;
+    this.cardCardWidth = Math.round(this.getBoundingClientRect().width);
+    // console.log("labelPosition", cardHeight);
+    // // Inizializza le linee SVG solo se necessario
+    // if (
+    //   linesSvg &&
+    //   linesSvg.querySelectorAll("path").length === 0 &&
+    //   this.activeMenu === "home"
+    // ) {
+    //   this.initializeLines();
+    // }
+    this.initializeLines();
     // Gestione opzionale di weather_entity
     let weatherObj = null;
     let weatherSvg = "";
@@ -1971,59 +2273,72 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     const batteryPercentageState = ((_j = this.hass.states[batteryPercentageNow]) === null || _j === void 0 ? void 0 : _j.state) ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0 : 0;
     // Calcola la riduzione di CO2
     const c02 = parseFloat((this.totalWekkPvProduction * 0.25).toFixed(2));
-    if (((_l = (_k = this.config) === null || _k === void 0 ? void 0 : _k.grid) === null || _l === void 0 ? void 0 : _l.grid_meter) && this.gridWeekTotal === null) {
-      this.askForEntity(this.config.grid.grid_meter, 7, (_m = this.config.grid) === null || _m === void 0 ? void 0 : _m.unit_of_measurament).then(gridAsk => {
-        this.gridWeekTotal = gridAsk.totale;
-      });
-    }
-    if ((_p = (_o = this.config) === null || _o === void 0 ? void 0 : _o.battery) === null || _p === void 0 ? void 0 : _p.battery_meter) {
-      this.askForEntity(this.config.battery.battery_meter, 7, (_q = this.config.battery) === null || _q === void 0 ? void 0 : _q.unit_of_measurament).then(batteryAsk => {
-        this.batteryWeekTotal = batteryAsk.totale;
-      });
-    }
+    // if (this.config?.grid?.grid_meter && this.gridWeekTotal === null) {
+    //   this.askForEntity(
+    //     this.config.grid.grid_meter,
+    //     8,
+    //     this.config.grid?.unit_of_measurament
+    //   ).then((gridAsk) => {
+    //     console.log('dridAsrk', gridAsk);
+    //     this.gridWeekTotal = gridAsk.totale;
+    //   });
+    // }
+    // if (this.config?.battery?.battery_meter) {
+    //   this.askForEntity(
+    //     this.config.battery.battery_meter,
+    //     8,
+    //     this.config.battery?.unit_of_measurament
+    //   ).then((batteryAsk) => {
+    //     this.batteryWeekTotal = batteryAsk.totale;
+    //   });
+    // }
     // Calcola il consumo totale settimanale
     const totalConsumption = Number(this.totalWekkPvProduction) + Number(this.gridWeekTotal);
     const totalWeekKwhPercentage = totalConsumption > 0 ? this.totalWekkPvProduction / totalConsumption * 100 : 0;
     return x`
-      <ha-card style="height: ${panelMode ? "100%" : "900px"} !important;">
-        <div class="title">
-          <div>E</div>
-          <div>n</div>
-          <div>e</div>
-          <div>r</div>
-          <div>g</div>
-          <div>y</div>
-          <div>C</div>
-          <div>o</div>
-          <div>n</div>
-          <div>t</div>
-          <div>r</div>
-          <div>o</div>
-          <div>l</div>
-        </div>
+      ${verticalCard ? x`
+            <ha-card
+              class="ha-card_vertical"
+              style="height: ${panelMode ? "100%" : "900px"} !important;"
+            >
+              <div class="title">
+                <div>E</div>
+                <div>n</div>
+                <div>e</div>
+                <div>r</div>
+                <div>g</div>
+                <div>y</div>
+                <div>C</div>
+                <div>o</div>
+                <div>n</div>
+                <div>t</div>
+                <div>r</div>
+                <div>o</div>
+                <div>l</div>
+              </div>
 
-        ${this.activeMenu === "home" ? x`
-              ${!this.showMoreElements ? x`
-                    <div
-                      id="homeContent"
-                      style="display: flex; flex-direction: column;"
-                    >
-                      <div
-                        style="display: flex; justify-content: center; flex-direction: column; gap: 50px; margin: auto 10%"
-                      >
-                        ${pv_nemuber >= 1 ? x`
-                              <div
-                                style="display: flex; justify-content: ${pv_nemuber == 1 ? "space-around" : "space-between"}"
-                              >
-                                ${weatherObj && pv_nemuber <= 2 ? x`
-                                      <div
-                                        style="width: 70px;cursor:pointer;"
-                                        @click=${() => this._moreinfo(this.config.weather_entity)}
-                                      >
-                                        ${renderIcon}
-                                      </div>
-                                    ` : ""}
-                                ${this.entities.map(entity => {
+              ${this.activeMenu === "home" ? x`
+                    ${!this.showMoreElements ? x`
+                          <div
+                            id="homeContent"
+                            style="display: flex; flex-direction: column;"
+                          >
+                            <div
+                              style="display: flex; justify-content: center; flex-direction: column; gap: 50px; margin: auto 10%"
+                            >
+                              ${pv_nemuber >= 1 ? x`
+                                    <div
+                                      style="display: flex; justify-content: ${pv_nemuber == 1 ? "space-around" : "space-between"}"
+                                    >
+                                      ${weatherObj && pv_nemuber <= 2 ? x`
+                                            <div
+                                              style="width: 70px;cursor:pointer;"
+                                              @click=${() => this._moreinfo(this.config.weather_entity)}
+                                            >
+                                              ${renderIcon}
+                                            </div>
+                                          ` : ""}
+                                      ${this.entities.map(entity => {
       const entityId = entity.pv; // Estrai l'ID dell'entità dalla chiave 'pv'
       const maxPower = entity.max_power;
       const stateObj = this.hass.states[entityId];
@@ -2031,9 +2346,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       const state = stateObj ? (unit === null || unit === void 0 ? void 0 : unit.toLowerCase()) === "kwh" || entity.convert_to_watt ? Math.round(parseFloat(stateObj.state) * 1000) : Math.round(parseFloat(stateObj.state)) : "N/A";
       const percentage = state !== "N/A" && maxPower > 0 ? Math.round(state / maxPower * 100) : "N/A";
       return x`
-                                    <div
-                                      
-                                      @click="${() => {
+                                          <div
+                                            @click="${() => {
         if (entity.more_elements) {
           this.moreElemetsName = this.hass.states[entityId].attributes.friendly_name;
           this.dynamicFunction = () => pvIcon(state);
@@ -2044,107 +2358,108 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           this._moreinfo(entityId);
         }
       }}"
-                                      id="pv-element"
-                                      class="element-svg top tile"
-                                      value="${state}"
-                                      style=" cursor:pointer; background: linear-gradient(90deg, #4eb274 0%, #4eb274 ${percentage}%, #284932 ${percentage}%, #284932 100%);"
-                                    >
-                                      ${pvIcon(state)}
-                                    </div>
-                                  `;
+                                            id="pv-element"
+                                            class="element-svg top tile tile_vertical"
+                                            value="${state}"
+                                            style=" cursor:pointer; background: linear-gradient(90deg, #4eb274 0%, #4eb274 ${percentage}%, #284932 ${percentage}%, #284932 100%);"
+                                          >
+                                            ${pvIcon(state)}
+                                          </div>
+                                        `;
     })}
-                              </div>
-                            ` : ""}
-                        <!-- SVG Casa -->
-                        <div
-                          style="display:flex; justify-content:space-evenly; align-items: center;"
-                        >
-                          ${weatherObj && pv_nemuber > 2 ? x`
-                                <div
-                                  style="display: flex; flex-direction: column;"
-                                >
-                                  <div
-                                    style="aspect-ratio: 1 / 1; width: 70px; cursor:pointer;"
-                                  >
-                                    ${renderIcon}
-                                  </div>
-                                  <div class="weather_attributes">
-                                    <div style="display: flex;">
-                                      <div style="width: 25px;">
-                                        ${cloudeCoverage()}
-                                      </div>
-                                      <div style="font-size: 12px">
-                                        &nbsp;${weatherObj.attributes.cloud_coverage}%
-                                      </div>
                                     </div>
-                                    <div style="font-size: 12px">
-                                      Uv:${weatherObj.attributes.uv_index}
-                                    </div>
-                                    <div style="display: flex;">
-                                      <div style="width: 13px;">
-                                        ${temperature()}
+                                  ` : ""}
+                              <!-- SVG Casa -->
+                              <div
+                                style="display:flex; justify-content:space-evenly; align-items: center;"
+                              >
+                                ${weatherObj && pv_nemuber > 2 ? x`
+                                      <div
+                                        style="display: flex; flex-direction: column;"
+                                      >
+                                        <div
+                                          style="aspect-ratio: 1 / 1; width: 70px; cursor:pointer;"
+                                          @click=${() => this._moreinfo(this.config.weather_entity)}
+                                        >
+                                          ${renderIcon}
+                                        </div>
+                                        <div class="weather_attributes">
+                                          <div style="display: flex;">
+                                            <div style="width: 25px;">
+                                              ${cloudeCoverage()}
+                                            </div>
+                                            <div style="font-size: 12px">
+                                              &nbsp;${weatherObj.attributes.cloud_coverage}%
+                                            </div>
+                                          </div>
+                                          <div style="font-size: 12px">
+                                            Uv:${weatherObj.attributes.uv_index}
+                                          </div>
+                                          <div style="display: flex;">
+                                            <div style="width: 13px;">
+                                              ${temperature()}
+                                            </div>
+                                            <div style="font-size: 12px">
+                                              &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div style="font-size: 12px">
-                                        &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
+                                    ` : ""}
+                                ${weatherObj && pv_nemuber <= 2 ? x`
+                                      <div
+                                        style="display: grid; grid-template-columns: auto auto; grid-template-rows: 1fr 1fr 1fr; align-items: center;grid-column-gap:5px;"
+                                      >
+                                        <div style="width: 25px;">
+                                          ${cloudeCoverage()}
+                                        </div>
+                                        <div style="font-size: 12px">
+                                          &nbsp;${weatherObj.attributes.cloud_coverage}%
+                                        </div>
+                                        <div
+                                          style="font-size: 12px; opacity: .76;"
+                                        >
+                                          Uv:
+                                        </div>
+                                        <div style="font-size: 12px">
+                                          &nbsp;${weatherObj.attributes.uv_index}
+                                        </div>
+                                        <div style="width: 13px;">
+                                          ${temperature()}
+                                        </div>
+                                        <div style="font-size: 12px">
+                                          &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              ` : ""}
-                          ${weatherObj && pv_nemuber <= 2 ? x`
-                                <div
-                                  style="display: grid; grid-template-columns: auto auto; grid-template-rows: 1fr 1fr 1fr; align-items: center;grid-column-gap:5px;"
-                                >
-                                  <div style="width: 25px;">
-                                    ${cloudeCoverage()}
-                                  </div>
-                                  <div style="font-size: 12px">
-                                    &nbsp;${weatherObj.attributes.cloud_coverage}%
-                                  </div>
-                                  <div style="font-size: 12px; opacity: .76;">
-                                    Uv:
-                                  </div>
-                                  <div style="font-size: 12px">
-                                    &nbsp;${weatherObj.attributes.uv_index}
-                                  </div>
-                                  <div style="width: 13px;">
-                                    ${temperature()}
-                                  </div>
-                                  <div style="font-size: 12px">
-                                    &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
-                                  </div>
-                                </div>
-                              ` : ""}
+                                    ` : ""}
 
-                          <div
-                            id="casa"
-                            class="element-svg tile"
-                            style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;  width:70px; height:70px;${pv_nemuber >= 3 ? "margin:auto;" : " "} "
-                            @click="${() => {
+                                <div
+                                  id="casa"
+                                  class="element-svg tile tile_vertical"
+                                  style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;${pv_nemuber >= 3 ? "margin:auto;" : " "} "
+                                  @click="${() => {
       var _a, _b;
-      console.log('click3');
       this.moreElemetsName = "Inverter";
       this.dynamicFunction = () => inverter();
       if (!((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.inverter) === null || _b === void 0 ? void 0 : _b.more_elements)) return; // Se non esiste, non fare nulla
       this.dinamicContent = this.config.inverter.more_elements;
       this.showMoreElements = true;
     }}"
-                          >
-                            ${inverter()}
-                          </div>
-                        </div>
-                        <div
-                          style=" display: flex; justify-content:space-between; "
-                        
-                        >
-                          ${this.config.battery ? (() => {
+                                >
+                                  ${inverter()}
+                                </div>
+                              </div>
+                              <div
+                                style=" display: flex; justify-content:space-between; "
+                              >
+                                ${this.config.battery ? (() => {
       return x`
-                                  <div
-                                    id="battery"
-                                    class="element-svg bottom tile"
-                                    value="${batteryTotal}"
-                                    style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal < 0 ? "animation: circular-border 2s infinite;" : ""}  "
-                                        @click="${() => {
+                                        <div
+                                          id="battery"
+                                          class="element-svg bottom tile tile_vertical"
+                                          value="${batteryTotal}"
+                                          style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal < 0 ? "animation: circular-border 2s infinite;" : ""}  "
+                                          @click="${() => {
         var _a, _b, _c, _d;
         if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.battery) === null || _b === void 0 ? void 0 : _b.more_elements) {
           this.moreElemetsName = "Battery";
@@ -2156,33 +2471,40 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           this._moreinfo((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.battery) === null || _d === void 0 ? void 0 : _d.power);
         }
       }}"
-                                  >
-                                    ${battery(batteryTotal, batteryPercentageState)}
-                                  </div>
-                                `;
+                                        >
+                                          ${battery(batteryTotal, batteryPercentageState)}
+                                        </div>
+                                      `;
     })() : ""}
-                          <div
-                            id="home_tile"
-                            class="element-svg bottom tile"
-                            value="${totalPower}"
-                            style="background: linear-gradient(118deg, #959c98 0%, #254344 100%); "
-                          >
-                            ${home(totalPower, pvPercentage, batteryPercentage)}
-                          </div>
-                          ${this.config.grid ? (() => {
+                                <div
+                                  id="home_tile"
+                                  class="element-svg bottom tile tile_vertical"
+                                  value="${totalPower}"
+                                  style="background: linear-gradient(118deg, #959c98 0%, #254344 100%); "
+                                  @click="${() => {
+      var _a, _b;
+      this.moreElemetsName = "Home";
+      this.dynamicFunction = () => inverter();
+      if (!((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.inverter) === null || _b === void 0 ? void 0 : _b.more_elements)) return; // Se non esiste, non fare nulla
+      this.dinamicContent = this.config.inverter.more_elements;
+      this.showMoreElements = true;
+    }}"
+                                >
+                                  ${home(totalPower, pvPercentage, batteryPercentage)}
+                                </div>
+                                ${this.config.grid ? (() => {
       var _a, _b;
       const maxPower = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.max_power;
       const percentage = Math.round(gridTotal / maxPower * 100);
       return x`
-                                  <div
-                                    id="grid-power-direct"
-                                    class="element-svg bottom tile"
-                                    value="${gridTotal}"
-                                    style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
-                                  @click="${() => {
+                                        <div
+                                          id="grid-power-direct"
+                                          class="element-svg bottom tile tile_vertical"
+                                          value="${gridTotal}"
+                                          style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
+                                          @click="${() => {
         var _a, _b;
         if (this.config.grid.more_elements) {
-          console.log('click');
           this.moreElemetsName = "Grid";
           this.dynamicFunction = () => gridPower(gridTotal);
           this.dinamicContent = this.config.grid.more_elements;
@@ -2192,95 +2514,105 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           this._moreinfo((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.grid_entity);
         }
       }}"
-                                    >
-                                    ${gridPower(gridTotal)}
-                                  </div>
-                                `;
+                                        >
+                                          ${gridPower(gridTotal)}
+                                        </div>
+                                      `;
     })() : ""}
-                        </div>
-                        <!-- Linee dinamiche -->
-                        <svg
-                          class="lines-svg"
-                          style="width: 100%; height: 100%; z-index: 1; pointer-events: none;"
-                        ></svg>
-                      </div>
-                      <!-- ****************** info **************************** -->
-                      <div
-                        style="margin-left: 5%; margin-right: 5%; margin-top: auto;"
-                      >
-                        <div>produzione ultimi 7 giorni</div>
-                        <div class="home_info">
-                          <div class="info_column">
-                            <ha-icon
-                              icon="mdi:molecule-co2"
-                              class="info_icon"
-                            ></ha-icon>
-                            ${c02 > 0 ? x` <div>${c02} kg</div> ` : x` <div style="width:25px;">
-                                  ${loader()}
-                                </div>`}
-                            <div>co2 risparmiata</div>
-                          </div>
-                          <div
-                            style="width: 2px; height: 80%; background-color: var(--divider-color);"
-                          ></div>
-                          <div class="info_column">
-                            <ha-icon
-                              icon="mdi:piggy-bank"
-                              class="info_icon"
-                            ></ha-icon>
-                            ${this.totalWekkPvProduction > 0 ? x`
-                                  <div>${this.totalWekkPvProduction} Kwh</div>
-                                ` : x` <div style="width:25px;">
-                                  ${loader()}
-                                </div>`}
+                              </div>
+                              <!-- Linee dinamiche -->
+                              <svg
+                                class="lines-svg"
+                                style="width: 100%; height: 100%; z-index: 1; pointer-events: none;"
+                              ></svg>
+                            </div>
+                            <!-- ****************** info **************************** -->
+                            <div
+                              style="margin-left: 5%; margin-right: 5%; margin-top: auto;"
+                            >
+                              <div>produzione ultimi 7 giorni</div>
+                              <div class="home_info">
+                                <div class="info_column">
+                                  <ha-icon
+                                    icon="mdi:molecule-co2"
+                                    class="info_icon"
+                                  ></ha-icon>
+                                  ${c02 > 0 ? x` <div>${c02} kg</div> ` : x` <div style="width:25px;">
+                                        ${loader()}
+                                      </div>`}
+                                  <div>co2 risparmiata</div>
+                                </div>
+                                <div
+                                  style="width: 2px; height: 80%; background-color: var(--divider-color);"
+                                ></div>
+                                <div class="info_column">
+                                  <ha-icon
+                                    icon="mdi:piggy-bank"
+                                    class="info_icon"
+                                  ></ha-icon>
+                                  ${this.totalWekkPvProduction > 0 ? x`
+                                        <div>
+                                          ${this.totalWekkPvProduction} Kwh
+                                        </div>
+                                      ` : x` <div style="width:25px;">
+                                        ${loader()}
+                                      </div>`}
 
-                            <div>risparmio</div>
-                          </div>
-                          <div
-                            style="width: 2px; height: 80%; background-color: var(--divider-color);"
-                          ></div>
-                          <div class="info_column">
-                            <ha-icon
-                              icon="mdi:home"
-                              class="info_icon"
-                            ></ha-icon>
-                            ${totalWeekKwhPercentage > 0 ? x`
-                                  <div>
-                                    ${totalWeekKwhPercentage.toFixed(1)}%
-                                  </div>
-                                ` : x` <div style="width:25px;">
-                                  ${loader()}
-                                </div>`}
+                                  <div>risparmio</div>
+                                </div>
+                                <div
+                                  style="width: 2px; height: 80%; background-color: var(--divider-color);"
+                                ></div>
+                                <div class="info_column">
+                                  <ha-icon
+                                    icon="mdi:home"
+                                    class="info_icon"
+                                  ></ha-icon>
+                                  ${totalWeekKwhPercentage > 0 ? x`
+                                        <div>
+                                          ${totalWeekKwhPercentage.toFixed(1)}%
+                                        </div>
+                                      ` : x` <div style="width:25px;">
+                                        ${loader()}
+                                      </div>`}
 
-                            <div>autosufficienza</div>
+                                  <div>autosufficienza</div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  ` : x`
-                    <div class="more_elements_container">
-                      <div style="padding: 20px 20px 15px 20px; display:flex;justify-content: center; align-items: center;">
-                        <div
-                          class="element-svg tile"
-                          style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;  width:70px; height:70px;"
-                        >
-                          ${this.dynamicFunction()}
-                        </div>
-                        <div class="more_elemnts_divider ">${this.moreElemetsName}</div>
-                        <div class="element-svg tile back_button" style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);"
-                        @click="${() => {
+                        ` : x`
+                          <div class="more_elements_container">
+                            <div
+                              style="padding: 20px 20px 15px 20px; display:flex;justify-content: center; align-items: center;"
+                            >
+                              <div
+                                class="element-svg tile tile_vertical"
+                                style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;  width:70px; height:70px;"
+                              >
+                                ${this.dynamicFunction()}
+                              </div>
+                              <div class="more_elemnts_divider ">
+                                ${this.moreElemetsName}
+                              </div>
+                              <div
+                                class="element-svg tile tile_vertical back_button"
+                                style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);"
+                                @click="${() => {
       this.showMoreElements = false;
       this.moreElements_Cards = null;
     }}"
-                          >back</div>
-                      </div>
-                      <div id="style-2" class="more_elements">
-                        ${this.generateMoreElements(this.dinamicContent)}
-                      </div>
-                    </div>
-                  `}
-            ` : ""}
-        ${this.activeMenu === "chart" ? x`
+                              >
+                                back
+                              </div>
+                            </div>
+                            <div id="style-2" class="more_elements">
+                              ${this.generateMoreElements(this.dinamicContent)}
+                            </div>
+                          </div>
+                        `}
+                  ` : ""}
+              ${this.activeMenu === "chart" ? x`
             <div class"arci" style="display: flex; flex-direction: column;">
             <div style="flex-grow: 4;"> 
               ${this.swicthChart ? x`
@@ -2337,48 +2669,629 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                 </div>
             </div>    
             ` : ""}
-        ${this.activeMenu === "tile" ? x`
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                ${this.createTileCards().map(tile => tile)}
-              </div>
-            ` : ""}
-        ${this.activeMenu === "heatmap" ? x` <div id="heatmap-chart"></div> ` : ""}
+              ${this.activeMenu === "tile" ? x`
+                    <div
+                      style="display: flex; flex-direction: column; gap: 10px;"
+                    >
+                      ${this.createTileCards().map(tile => tile)}
+                    </div>
+                  ` : ""}
+              ${this.activeMenu === "heatmap" ? x` <div id="heatmap-chart"></div> ` : ""}
 
-        <!-- ******************* bottom menu ****************** -->
-        <div class="bottom_bar">
-          <ha-icon
-            icon="mdi:home"
-            class="menu_icon ${this.activeMenu === "home" ? "menu_icon_on" : ""}"
-            @click="${() => {
+              <!-- ******************* bottom menu ****************** -->
+              <div class="bottom_bar_vertical">
+                <ha-icon
+                  icon="mdi:home"
+                  class="menu_icon ${this.activeMenu === "home" ? "menu_icon_on" : ""}"
+                  @click="${() => {
       this.activeMenu = "home";
     }}"
-          ></ha-icon>
-          <ha-icon
-            icon="mdi:chart-areaspline"
-            class="menu_icon ${this.activeMenu === "chart" ? "menu_icon_on" : ""}"
-            @click="${() => {
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:chart-areaspline"
+                  class="menu_icon ${this.activeMenu === "chart" ? "menu_icon_on" : ""}"
+                  @click="${() => {
       this.activeMenu = "chart";
       this._initializeChart(this.seriesData);
     }}"
-          ></ha-icon>
-          <ha-icon
-            icon="mdi:view-grid-compact"
-            class="menu_icon ${this.activeMenu === "heatmap" ? "menu_icon_on" : ""}"
-            @click="${() => {
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:view-grid-compact"
+                  class="menu_icon ${this.activeMenu === "heatmap" ? "menu_icon_on" : ""}"
+                  @click="${() => {
       this.activeMenu = "heatmap";
       this.get_recorder_for_heatmap();
       // this.initializeHeatmapChart();
     }}"
-          ></ha-icon>
-          <ha-icon
-            icon="mdi:format-list-numbered"
-            class="menu_icon ${this.activeMenu === "tile" ? "menu_icon_on" : ""}"
-            @click="${() => {
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:format-list-numbered"
+                  class="menu_icon ${this.activeMenu === "tile" ? "menu_icon_on" : ""}"
+                  @click="${() => {
       this.activeMenu = "tile";
     }}"
-          ></ha-icon>
-        </div>
-      </ha-card>
+                ></ha-icon>
+              </div>
+            </ha-card>
+          ` : x`
+            <!-- ********************************************************************************************************************** -->
+            <!-- ********************************************************************************************************************** -->
+            <!-- ********************************************************************************************************************** -->
+            <ha-card
+              class="ha-card_horizontal scaled-container"
+              style="height: ${panelMode ? "100%" : "900px"} !important;"
+            >
+              <!-- ************************** title *************************************** -->
+              <div class="title_horizontal" style="width: 100">
+                <div>E</div>
+                <div>n</div>
+                <div>e</div>
+                <div>r</div>
+                <div>g</div>
+                <div>y</div>
+                <div>C</div>
+                <div>o</div>
+                <div>n</div>
+                <div>t</div>
+                <div>r</div>
+                <div>o</div>
+                <div>l</div>
+              </div>
+
+              <!-- ************************** main flow **************************************** -->
+
+              ${!this.showMoreElements ? x`
+                    
+                      <div
+                        style="margin: 3vh 13% 10vh; display: flex; justify-content: space-between; flex-direction: column; grid-area: pv;"
+                      >
+                        ${pv_nemuber >= 1 ? x`
+                                <div
+                                  style="height:10vh; display: flex; justify-content: ${pv_nemuber == 1 ? "space-around" : "space-between"}"
+                                >
+                                  ${weatherObj && pv_nemuber <= 2 ? x`
+                                        <div
+                                          style="width: 12vh;cursor:pointer;"
+                                          @click=${() => this._moreinfo(this.config.weather_entity)}
+                                        >
+                                          ${renderIcon}
+                                        </div>
+                                      ` : ""}
+                                  ${this.entities.map(entity => {
+      const entityId = entity.pv; // Estrai l'ID dell'entità dalla chiave 'pv'
+      const maxPower = entity.max_power;
+      const stateObj = this.hass.states[entityId];
+      const unit = stateObj && stateObj.attributes.unit_of_measurement ? stateObj.attributes.unit_of_measurement : "";
+      const state = stateObj ? (unit === null || unit === void 0 ? void 0 : unit.toLowerCase()) === "kwh" || entity.convert_to_watt ? Math.round(parseFloat(stateObj.state) * 1000) : Math.round(parseFloat(stateObj.state)) : "N/A";
+      const percentage = state !== "N/A" && maxPower > 0 ? Math.round(state / maxPower * 100) : "N/A";
+      return x`
+                                      <div
+                                        @click="${() => {
+        if (entity.more_elements) {
+          this.moreElemetsName = this.hass.states[entityId].attributes.friendly_name;
+          this.dynamicFunction = () => pvIcon(state);
+          this.dinamicContent = entity.more_elements;
+          this.showMoreElements = true;
+        } else {
+          // Se more_elements non esiste, esegui this._moreinfo(entityId)
+          this._moreinfo(entityId);
+        }
+      }}"
+                                        id="pv-element"
+                                        class="element-svg top tile tile_horizontal"
+                                        value="${state}"
+                                        style=" cursor:pointer; background: linear-gradient(90deg, #4eb274 0%, #4eb274 ${percentage}%, #284932 ${percentage}%, #284932 100%);"
+                                      >
+                                        ${pvIcon(state)}
+                                      </div>
+                                    `;
+    })}
+                                </div>
+                              ` : ""}
+                        <!-- SVG Casa -->
+                        <div
+                          style="display:flex; justify-content:space-evenly; align-items: center; height:10vh;"
+                        >
+                          ${weatherObj && pv_nemuber > 2 ? x`
+                                  <div
+                                    style="display: flex; flex-direction: column;"
+                                  >
+                                    <div
+                                      style="aspect-ratio: 1 / 1; width: 12vh; cursor:pointer;"
+                                      @click=${() => this._moreinfo(this.config.weather_entity)}
+                                    >
+                                      ${renderIcon}
+                                    </div>
+                                    <div class="weather_attributes">
+                                      <div style="display: flex;">
+                                        <div style="width: 3vh">
+                                          ${cloudeCoverage()}
+                                        </div>
+                                        <div
+                                          style="font-size: 1.6vh;opacity: .76;align-self: center;"
+                                        >
+                                          &nbsp;${weatherObj.attributes.cloud_coverage}%
+                                        </div>
+                                      </div>
+                                      <div
+                                        style="font-size: 1.6vh;opacity: .76;align-self: center;"
+                                      >
+                                        Uv:${weatherObj.attributes.uv_index}
+                                      </div>
+                                      <div style="display: flex;">
+                                        <div style="width: 1.6vh;">
+                                          ${temperature()}
+                                        </div>
+                                        <div
+                                          style="font-size: 1.6vh;opacity: .76;align-self: center;"
+                                        >
+                                          &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ` : ""}
+                          ${weatherObj && pv_nemuber <= 2 ? x`
+                                  <div
+                                    style="display: grid;height:100%; grid-template-columns: auto auto; grid-template-rows: 1fr 1fr 1fr; align-items: center;grid-column-gap:5px;"
+                                  >
+                                    <div
+                                      style="height:100%; aspect-ratio: 1 / 1;"
+                                    >
+                                      ${cloudeCoverage()}
+                                    </div>
+                                    <div style="font-size: 2vh;opacity: .76;">
+                                      &nbsp;${weatherObj.attributes.cloud_coverage}%
+                                    </div>
+                                    <div style="font-size: 2vh; opacity: .76;">
+                                      Uv:
+                                    </div>
+                                    <div style="font-size: 2vh;opacity: .76;">
+                                      &nbsp;${weatherObj.attributes.uv_index}
+                                    </div>
+                                    <div style="height:100%; width: 2vh;">
+                                      ${temperature()}
+                                    </div>
+                                    <div style="font-size: 2vh; opacity: .76;">
+                                      &nbsp;${weatherObj.attributes.temperature}${weatherObj.attributes.temperature_unit}
+                                    </div>
+                                  </div>
+                                ` : ""}
+
+                          <div
+                            id="casa"
+                            class="element-svg tile tile_horizontal"
+                            style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;${pv_nemuber >= 3 ? "margin:auto;" : " "} "
+                            @click="${() => {
+      var _a, _b;
+      this.moreElemetsName = "Inverter";
+      this.dynamicFunction = () => inverter();
+      if (!((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.inverter) === null || _b === void 0 ? void 0 : _b.more_elements)) return; // Se non esiste, non fare nulla
+      this.dinamicContent = this.config.inverter.more_elements;
+      this.showMoreElements = true;
+    }}"
+                          >
+                            ${inverter()}
+                          </div>
+                        </div>
+                        <div
+                          style=" display: flex; justify-content:space-between; height:10vh;"
+                        
+                        >
+                          ${this.config.battery ? (() => {
+      return x`
+                                    <div
+                                      id="battery"
+                                      class="element-svg bottom tile tile_horizontal"
+                                      value="${batteryTotal}"
+                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal < 0 ? "animation: circular-border 2s infinite;" : ""}  "
+                                      @click="${() => {
+        var _a, _b, _c, _d;
+        if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.battery) === null || _b === void 0 ? void 0 : _b.more_elements) {
+          this.moreElemetsName = "Battery";
+          this.dynamicFunction = () => battery(batteryTotal, batteryPercentageState);
+          this.dinamicContent = this.config.battery.more_elements;
+          this.showMoreElements = true;
+        } else {
+          // Se more_elements non esiste, esegui this._moreinfo(entityId)
+          this._moreinfo((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.battery) === null || _d === void 0 ? void 0 : _d.power);
+        }
+      }}"
+                                    >
+                                      ${battery(batteryTotal, batteryPercentageState)}
+                                    </div>
+                                  `;
+    })() : ""}
+                          <div
+                            id="home_tile"
+                            class="element-svg bottom tile tile_horizontal"
+                            value="${totalPower}"
+                            style="background: linear-gradient(118deg, #959c98 0%, #254344 100%); "
+                             @click="${() => {
+      var _a, _b;
+      this.moreElemetsName = "Home";
+      this.dynamicFunction = () => inverter();
+      if (!((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.inverter) === null || _b === void 0 ? void 0 : _b.more_elements)) return; // Se non esiste, non fare nulla
+      this.dinamicContent = this.config.inverter.more_elements;
+      this.showMoreElements = true;
+    }}"
+                          >
+                            ${home(totalPower, pvPercentage, batteryPercentage)}
+                          </div>
+                          ${this.config.grid ? (() => {
+      var _a, _b;
+      const maxPower = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.max_power;
+      const percentage = Math.round(gridTotal / maxPower * 100);
+      return x`
+                                    <div
+                                      id="grid-power-direct"
+                                      class="element-svg bottom tile tile_horizontal"
+                                      value="${gridTotal}"
+                                      style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
+                                      @click="${() => {
+        var _a, _b;
+        if (this.config.grid.more_elements) {
+          this.moreElemetsName = "Grid";
+          this.dynamicFunction = () => gridPower(gridTotal);
+          this.dinamicContent = this.config.grid.more_elements;
+          this.showMoreElements = true;
+        } else {
+          // Se more_elements non esiste, esegui this._moreinfo(entityId)
+          this._moreinfo((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.grid_entity);
+        }
+      }}"
+                                    >
+                                      ${gridPower(gridTotal)}
+                                    </div>
+                                  `;
+    })() : ""}
+                        </div>
+                        <!-- Linee dinamiche -->
+                        <svg
+                          class="lines-svg"
+                          style="width: 100%; height: 100%; z-index: 1; pointer-events: none;"
+                        ></svg>
+                      </div>
+                      </div>
+                                          
+                  ` : x`
+                    <div class="more_elements_container_horizontal">
+                      <div
+                        style="padding: 20px 20px 15px 20px; display:flex;justify-content: center; align-items: center;"
+                      >
+                        <div
+                          class="element-svg tile tile_horizontal"
+                          style="background: linear-gradient(118deg, #959c98 0%, #254344 100%);cursor: pointer;  width:10vh; height:10vh;"
+                        >
+                          ${this.dynamicFunction()}
+                        </div>
+                        <div class="more_elemnts_divider ">
+                          ${this.moreElemetsName}
+                        </div>
+                        <div
+                          class="element-svg tile  back_button"
+                          style="background: linear-gradient(118deg, #959c98 0%, #254344 100%); height:10vh; width: 10vh;"
+                          @click="${() => {
+      this.showMoreElements = false;
+      this.moreElements_Cards = null;
+    }}"
+                        >
+                          back
+                        </div>
+                      </div>
+                      <div id="style-2" class="more_elements">
+                        ${this.generateMoreElements(this.dinamicContent)}
+                      </div>
+                    </div>
+                  `}
+
+              <!-- ************************** chart container *************************************** -->
+              <div class="mainChartHorizonatContainer">
+                <div style="width: 20%; display: flex;flex-direction: column;">
+                  <div style="opacity: 0.4;">
+                    <svg
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 1190.9 1040.9"
+                      style="enable-background:new 0 0 1190.9 1040.9;"
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .st0_logo {
+                          fill: #ffffff;
+                        }
+                        .st1_logo {
+                          fill: #534741;
+                        }
+                        .st2_logo {
+                          opacity: 0.29;
+                        }
+                      </style>
+                      <path class="st0_logo" d="M2118.9-650.2" />
+                      <g>
+                        <g>
+                          <path
+                            class="st1_logo"
+                            d="M905.6,489.9l-10.5,65.2c-2.1,12.9,9.5,20.6,26.1,17.1l89.8-19c18.2-3.8,34.5-18.1,36.1-31.8l8.4-68.9
+                              c1.6-13.1-11.7-19.8-29.4-15.3L938.4,460C922.2,464.2,907.6,477.5,905.6,489.9z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M760.3,606.3l77.6-16.4c15.6-3.3,30.2-16.4,32.3-29.2l10.8-64.6c2-12.3-8.9-18.9-24.2-15l-76.1,19.6
+                              c-14.1,3.6-27.3,16-29.6,27.7l-12.2,61.4C736.4,601.9,746,609.3,760.3,606.3z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M459.5,780.4l68.2-10.4c12.1-1.8,24.4-13.2,27.2-25.2l14.5-61.2c2.7-11.6-4.9-19-16.8-16.6l-67.4,13.7
+                              c-11,2.2-22.2,12.9-25.1,24l-15.2,58.1C441.9,774.1,448.4,782.1,459.5,780.4z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M524.7,873l15.4-65.1c2.9-12.3-4.7-20.9-16.9-19.2l-68.3,9.8c-11.2,1.6-22.6,12.3-25.7,24L413.1,884
+                              c-3.2,12.1,3.3,21.2,14.6,20.2l69.1-6C509.1,897.1,521.7,885.8,524.7,873z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M620.3,635.9l67.7-14.3c13.6-2.9,26.8-15,29.2-27.1l12.4-60.8c2.4-11.6-6.7-18.1-20.1-14.6l-66.7,17.2
+                              c-12.4,3.2-24.4,14.7-27,25.7l-13.4,58C599.8,631.4,607.7,638.6,620.3,635.9z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M691.1,722.6l13.3-65.1c2.5-12.3-6.6-20-20.3-17.2l-67.9,13.8c-12.6,2.6-24.9,14.1-27.6,25.8l-14.3,61.8
+                              c-2.8,12.2,5.1,20.5,17.9,18.6l68.9-10.5C674.9,747.6,688.4,735.4,691.1,722.6z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M884.3,622.9L873,693c-2.2,13.8,9.6,23.1,26.6,20.5l92.3-14c18.7-2.8,35.6-17.2,37.4-31.9l9.1-74.4
+                              c1.7-14.1-11.9-22.3-30.1-18.6l-90.2,18.3C901.5,596.2,886.4,609.6,884.3,622.9z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M699.6,786.9l-14,70.2c-2.8,13.8,7,24.1,22,22.8l81.1-7.1c16.4-1.4,31.9-14.6,34.3-29.3l12.4-74.5
+                              c2.3-14.1-9-23.6-25-21.3l-79.6,11.4C716.2,761.2,702.3,773.6,699.6,786.9z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M726.2,653.3L713.1,719c-2.6,12.9,7.1,21.7,21.8,19.5l79.3-12.1c16-2.4,31-15.6,33.3-29.3l11.6-69.4
+                              c2.2-13.1-8.9-21.1-24.6-17.9l-77.8,15.8C742.2,628.5,728.7,640.9,726.2,653.3z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M796.9,1000.8l13.4-80.1c2.5-15.1-9-26.3-25.4-25l-81.4,6.2c-15,1.2-29.4,13.5-32.2,27.8l-14.9,75.1
+                              c-2.9,14.8,6.9,26.7,22.2,26.5l83-1.3C778.3,1029.8,794.3,1016.6,796.9,1000.8z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M988.9,722.3l-92.7,13.2c-17.1,2.4-32.6,15.9-34.9,30.1l-12.1,75.3c-2.4,14.9,9.6,25.8,27.1,24.3l94.9-8.3
+                              c19.3-1.7,36.7-16,38.7-31.9l9.8-80.3C1021.7,729.6,1007.7,719.6,988.9,722.3z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M562.2,892.5l70.1-6.1c14.1-1.2,28-13.4,30.8-27.1l14.2-69.5c2.7-13.2-6.6-22.1-20.5-20.2l-69.1,9.9
+                              c-12.8,1.8-25.4,13.3-28.3,25.8L544.3,871C541.3,884,549.2,893.6,562.2,892.5z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M583.5,624.1l13.6-57.5c2.6-11-5-17.3-16.8-14.3l-66.5,17.1c-10.9,2.8-21.8,13.5-24.6,23.9l-14.3,54.7
+                              c-2.8,10.8,3.7,17.7,14.7,15.4l67.3-14.2C568.8,646.8,580.8,635.5,583.5,624.1z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M492.4,1009.4l16.4-69.3c3.1-13.1-4.5-23-16.8-22l-69.3,5.3c-11.3,0.9-23,11.6-26.2,24l-17.1,65.3
+                              c-3.4,12.9,3,23.2,14.5,23l70-1.1C476.3,1034.4,489.2,1023.1,492.4,1009.4z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M836.8,919l-13,81.1c-2.6,16,9.7,28.9,27.6,28.6l97.7-1.5c19.9-0.3,37.9-14.6,40.1-31.8l10.6-86.9
+                              c2-16.4-12.3-28.4-31.7-26.9l-95.3,7.3C855.2,890.2,839.2,903.7,836.8,919z"
+                          />
+                          <path
+                            class="st1_logo"
+                            d="M627.9,907.7l-70.3,5.4c-13,1-26,12.5-29,25.8l-16.2,70c-3.2,13.8,4.8,24.9,18,24.7l71.4-1.1
+                              c14.4-0.2,28.7-12.4,31.7-27l15.2-74.3C651.4,917,642.1,906.6,627.9,907.7z"
+                          />
+                        </g>
+                        <g>
+                          <path
+                            class="st1_logo"
+                            d="M349.4,1015.9l28.9-114.4c-111.6-72-181-201.4-169.3-342.9C225.9,354.1,405.4,202,609.9,218.9
+                              c140.9,11.7,256.7,100.6,309.7,221.6l131.1-32.4c-76.1-34.3-111.3-137-49.8-212.2v0C897.6,269.1,758.8,175,788.5,52
+                              c-61.4,110.7-227.2,86.2-253.8-37.6c-7.2,126.4-167.3,176.2-245,76.3c48.3,117-74.3,231.4-187.6,175
+                              c94.3,84.5,33.5,240.7-93.1,239.1c121.6,35.2,134.6,202.3,19.8,255.8c124.8-21.1,209,123.9,128.9,221.9
+                              C225.6,934.4,308.8,958.6,349.4,1015.9z"
+                          />
+                          <g class="st2_logo">
+                            <path
+                              class="st1_logo"
+                              d="M354.7,994.7l18.9-75l0-0.2c-122.9-76.6-194.1-217.6-182.1-362.3C208.2,357,378.3,200.2,578.8,200.2
+                                c10.8,0,21.7,0.5,32.5,1.3c140.7,11.6,262.7,97.5,321.4,225.3l89-15c-26.1-17.4-46.9-42.9-58.9-73.6
+                                c-13.4-34.3-14-70.7-2.8-104.1c-12.4,3.3-25.1,4.9-37.9,4.9c-47.2,0-93-22.5-122.7-60.2c-17.5-22.2-28.1-47.8-31.4-74.8
+                                c-27.1,23-61.5,35.9-98.7,35.9c-54.2,0-102.3-27-130.1-69.9c-26,59.5-86.6,91-142.6,91c-28.7,0-55.5-7.6-78.9-22
+                                c1,31.1-7.7,61.9-25.7,88.9c-29.3,43.7-77.3,69.8-128.6,69.8c-5,0-10-0.3-15-0.8c19.9,38,22.8,82.9,6.4,125.7
+                                c-16.6,43.5-49.4,75.4-90.4,90.1c34.7,25.8,56.7,65.3,60.3,111.5c3.6,46.2-12.1,88.7-42.5,119.5c47.1,9.2,87.4,40.4,109,86
+                                c17.7,37.4,19.9,77.5,7.4,114.3c12.3-3.2,24.9-4.9,37.6-4.9C282.7,939.4,325.8,960.9,354.7,994.7z"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="current_percentage">
+                    <div class="inner_meter">
+                      <div
+                        class="grid"
+                        style="height:${100 - batteryPercentage - pvPercentage}%"
+                      >
+                        <ha-icon icon="mdi:factory" class="bar_icon"></ha-icon>
+                      </div>
+                      <div class="battery" style="height:${batteryPercentage}%">
+                        <ha-icon
+                          icon="mdi:battery-high"
+                          class="bar_icon"
+                          style="transform: rotate(90deg);"
+                        ></ha-icon>
+                      </div>
+                      <div class="photovoltaic" style="height:${pvPercentage}%">
+                        <ha-icon
+                          icon="mdi:solar-power-variant-outline"
+                          class="bar_icon"
+                        ></ha-icon>
+                      </div>
+                    </div>
+                    <div class="homePer">
+                      <ha-icon icon="mdi:home" class="bar_icon"></ha-icon>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="width:70%; display: flex; flex-direction: column; align-self: flex-end;"
+                >
+                  ${this.activeMenu === "home" ? x`
+                        <h3 style="font-size: 2vh; margin: 0 0 1vh;">
+                          Previsioni Produzione Fotovoltaica
+                        </h3>
+                        <div class="production_range">
+                          <label for="interval-slider" style="font-size: 1.4vh"
+                            >Intervallo: ${this._interval} minuti</label
+                          >
+                          <div class="range-container">
+                            <input
+                              class="slider_in_horizontal_view"
+                              id="interval-slider"
+                              type="range"
+                              min="1"
+                              max="30"
+                              .value="${this._interval}"
+                              @input="${this._onSliderInput}"
+                              @change="${this._atSliderChange}"
+                            />
+                            <div class="offset_label">
+                              <span class="range-thumb-label"
+                                >${this._interval}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div id="chart"></div>
+                      ` : ""}
+                  ${this.activeMenu === "chart" ? x`
+
+                              <h3 style="margin-bottom: 70px;">
+                                Andamento Settimanale (Ultimi 7 Giorni)
+                              </h3>
+                              <div id="week-chart"></div>
+                              <!-- Nuovo contenitore per il secondo grafico -->
+                        </div>
+                      ` : ""}
+                  ${this.activeMenu === "tile" ? x`
+                        <div
+                          style="display: flex; flex-direction: column; gap: 10px;"
+                        >
+                          ${this.createTileCards().map(tile => tile)}
+                        </div>
+                      ` : ""}
+                  ${this.activeMenu === "heatmap" ? x` <div id="heatmap-chart"></div> ` : ""}
+                </div>
+              </div>
+
+              <!-- ************************** 7 day text *************************************** -->
+
+              <div
+                style="font-size: 2vh; margin-bottom:2vh;grid-area: daystext;"
+              >
+                produzione ultimi 7 giorni
+              </div>
+
+              <!-- ************************** info *************************************** -->
+              <div style="grid-area: info;">
+                <div class="home_info" style="height: 14vh;">
+                  <div class="info_column">
+                    <ha-icon
+                      style="--mdc-icon-size: 5.5vh;"
+                      icon="mdi:molecule-co2"
+                      class="info_icon"
+                    ></ha-icon>
+                    ${c02 > 0 ? x` <div style="font-size:2vh;">${c02} kg</div> ` : x` <div style="width:25px;">${loader()}</div>`}
+                    <div style="font-size:1.6vh;">co2 risparmiata</div>
+                  </div>
+                  <div
+                    style="width: 2px; height: 80%; background-color: var(--divider-color);"
+                  ></div>
+                  <div class="info_column">
+                    <ha-icon
+                      style="--mdc-icon-size: 5.5vh;"
+                      icon="mdi:piggy-bank"
+                      class="info_icon"
+                    ></ha-icon>
+                    ${this.totalWekkPvProduction > 0 ? x`
+                          <div style="font-size:2vh;">
+                            ${this.totalWekkPvProduction} Kwh
+                          </div>
+                        ` : x` <div style="width:25px;">${loader()}</div>`}
+
+                    <div style="font-size:1.6vh;">risparmio</div>
+                  </div>
+                  <div
+                    style="width: 2px; height: 80%; background-color: var(--divider-color);"
+                  ></div>
+                  <div class="info_column">
+                    <ha-icon
+                      style="--mdc-icon-size: 5.5vh;"
+                      icon="mdi:home"
+                      class="info_icon"
+                    ></ha-icon>
+                    ${totalWeekKwhPercentage > 0 ? x`
+                          <div style="font-size:2vh;">
+                            ${totalWeekKwhPercentage.toFixed(1)}%
+                          </div>
+                        ` : x` <div style="width:25px;">${loader()}</div>`}
+
+                    <div style="font-size:1.6vh;">autosufficienza</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ******************* bottom menu ****************** -->
+              <div class="bottom_bar_horizontal">
+                <ha-icon
+                  icon="mdi:chart-areaspline"
+                  class="menu_icon_horizontal ${this.activeMenu === "home" ? "menu_icon_on" : ""}"
+                  @click="${() => {
+      this.activeMenu = "home";
+      this._initializeChart(this.seriesData);
+    }}"
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:chart-box-outline"
+                  class="menu_icon_horizontal ${this.activeMenu === "chart" ? "menu_icon_on" : ""}"
+                  @click="${() => {
+      this.activeMenu = "chart";
+      this.initializeApexChart(this.chartdata, "week-chart");
+    }}"
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:view-grid-compact"
+                  class="menu_icon_horizontal ${this.activeMenu === "heatmap" ? "menu_icon_on" : ""}"
+                  @click="${() => {
+      this.activeMenu = "heatmap";
+      this.get_recorder_for_heatmap();
+      // this.initializeHeatmapChart();
+    }}"
+                ></ha-icon>
+                <ha-icon
+                  icon="mdi:format-list-numbered"
+                  class="menu_icon_horizontal ${this.activeMenu === "tile" ? "menu_icon_on" : ""}"
+                  @click="${() => {
+      this.activeMenu = "tile";
+    }}"
+                ></ha-icon>
+              </div>
+            </ha-card>
+          `}
     `;
   }
   //   // ******************************* fine heatmap **********************
@@ -2389,8 +3302,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this.startTime.setHours(23, 0, 0);
     this.endTime.setHours(23, 59, 59, 999);
   }
-  firstUpdated() {
-    var _a;
+  async firstUpdated() {
+    var _a, _b, _c, _d, _e, _f, _g;
     this.daysToEvaluate = this.config.days ? this.config.days : 7;
     this.getNowTime();
     // Ottieni latitudine e longitudine da Home Assistant
@@ -2421,64 +3334,398 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       resizeObserver.observe(slider.parentElement);
     }
     this._fetchTodayData();
-  }
-  updated(changedProps) {
-    var _a, _b, _c, _d, _e;
-    super.updated(changedProps);
-    if (!this.hass) return;
-    // Array delle entità da monitorare
-    let entitiesToWatch = [];
-    // Aggiungi `this.config.battery.power` se esiste
-    if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.battery) === null || _b === void 0 ? void 0 : _b.power) {
-      entitiesToWatch.push(this.config.battery.power);
-    }
-    // Aggiungi `this.config.grid.grid_entity` se esiste
-    if ((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.grid_entity) {
-      entitiesToWatch.push(this.config.grid.grid_entity);
-    }
-    // Aggiungi tutte le entità contenute in `this.config.entities`
-    if ((_e = this.config) === null || _e === void 0 ? void 0 : _e.entities) {
-      this.config.entities.forEach(entityConfig => {
-        if (entityConfig.pv) {
-          entitiesToWatch.push(entityConfig.pv);
-        }
-        if (entityConfig.sensor_meter) {
-          entitiesToWatch.push(entityConfig.sensor_meter);
-        }
-        if (entityConfig.more_elements && Array.isArray(entityConfig.more_elements)) {
-          entitiesToWatch.push(...entityConfig.more_elements);
-        }
+    if (((_c = (_b = this.config) === null || _b === void 0 ? void 0 : _b.grid) === null || _c === void 0 ? void 0 : _c.grid_meter) && this.gridWeekTotal === null) {
+      this.askForEntity(this.config.grid.grid_meter, 8, (_d = this.config.grid) === null || _d === void 0 ? void 0 : _d.unit_of_measurament).then(gridAsk => {
+        this.gridWeek = gridAsk;
+        this.gridWeekTotal = gridAsk.totale;
       });
     }
-    // Controlla se una delle entità ha cambiato stato
-    let hasChanged = false;
-    entitiesToWatch.forEach(entity => {
-      var _a, _b;
-      if (changedProps.has("hass") && this.hass.states[entity] !== ((_a = changedProps.get("hass")) === null || _a === void 0 ? void 0 : _a.states[entity])) {
-        hasChanged = true;
-        console.log(`L'entità ${entity} è cambiata! Nuovo stato:`, (_b = this.hass.states[entity]) === null || _b === void 0 ? void 0 : _b.state);
-      }
-    });
-    // Se una delle entità è cambiata, esegui una funzione
-    if (hasChanged) {
-      this.initializeLines();
+    if ((_f = (_e = this.config) === null || _e === void 0 ? void 0 : _e.battery) === null || _f === void 0 ? void 0 : _f.battery_meter) {
+      this.askForEntity(this.config.battery.battery_meter, 8, (_g = this.config.battery) === null || _g === void 0 ? void 0 : _g.unit_of_measurament).then(batteryAsk => {
+        this.batteryWeek = batteryAsk;
+        this.batteryWeekTotal = batteryAsk.totale;
+      });
     }
   }
+  //   protected updated(changedProps: Map<string, any>) {
+  //     super.updated(changedProps);
+  //     if (!this.hass) return;
+  //     // Lista delle entità da monitorare
+  //     let entitiesToWatch: string[] = [];
+  //     // Aggiungi `this.config.battery.power` se esiste
+  //     if (this.config?.battery?.power) {
+  //         entitiesToWatch.push(this.config.battery.power);
+  //     }
+  //     // Aggiungi `this.config.grid.grid_entity` se esiste
+  //     if (this.config?.grid?.grid_entity) {
+  //         entitiesToWatch.push(this.config.grid.grid_entity);
+  //     }
+  //     // Aggiungi tutte le entità contenute in `this.config.entities`
+  //     if (this.config?.entities) {
+  //         this.config.entities.forEach((entityConfig: any) => {
+  //             if (entityConfig.pv) {
+  //                 entitiesToWatch.push(entityConfig.pv);
+  //             }
+  //             if (entityConfig.sensor_meter) {
+  //                 entitiesToWatch.push(entityConfig.sensor_meter);
+  //             }
+  //             if (entityConfig.more_elements && Array.isArray(entityConfig.more_elements)) {
+  //                 entitiesToWatch.push(...entityConfig.more_elements);
+  //             }
+  //         });
+  //     }
+  //     // **1️⃣ Primo avvio: Se hass era undefined, esegui immediatamente handleEntityChange()**
+  //     if (changedProps.has("hass") && !changedProps.get("hass")) {
+  //         console.log("hass è ora disponibile, eseguo subito handleEntityChange()");
+  //         this.initializeLines();
+  //         return; // Evita di eseguire il controllo due volte
+  //     }
+  //     // **2️⃣ Controlla se una delle entità ha cambiato stato**
+  //     let hasChanged = false;
+  //     entitiesToWatch.forEach(entity => {
+  //         if (changedProps.has("hass") && this.hass.states[entity] !== changedProps.get("hass")?.states[entity]) {
+  //             hasChanged = true;
+  //             console.log(`L'entità ${entity} è cambiata! Nuovo stato:`, this.hass.states[entity]?.state);
+  //         }
+  //     });
+  //     // **3️⃣ Se una delle entità è cambiata, esegui una funzione**
+  //     if (hasChanged) {
+  //         this.initializeLines();
+  //     }
+  // }
+  // initializeLines() {
+  //   const linesSvg = this.shadowRoot.querySelector(
+  //     ".lines-svg"
+  //   ) as SVGSVGElement;
+  //   if (!linesSvg) {
+  //     return;
+  //   }
+  //   // Rimuovi tutte le linee esistenti
+  //   while (linesSvg.firstChild) {
+  //     linesSvg.removeChild(linesSvg.firstChild);
+  //   }
+  //   const photovoltaicTopElements = Array.from(
+  //     this.shadowRoot.querySelectorAll(".element-svg.top")
+  //   ) as SVGSVGElement[];
+  //   const photovoltaicBottomElements = Array.from(
+  //     this.shadowRoot.querySelectorAll(".element-svg.bottom")
+  //   ) as SVGSVGElement[];
+  //   const casaSvg = this.shadowRoot.querySelector(
+  //     ".element-svg#casa"
+  //   ) as SVGSVGElement;
+  //   if (!casaSvg) {
+  //     return;
+  //   }
+  //   const linesSvgRect = linesSvg.getBoundingClientRect();
+  //   const casaRect = casaSvg.getBoundingClientRect();
+  //   const casaX = casaRect.x - linesSvgRect.x;
+  //   const casaY = casaRect.y - linesSvgRect.y;
+  //   const casaWidth = casaRect.width;
+  //   const casaHeight = casaRect.height;
+  //   const casaCenterX = casaX + casaWidth / 2;
+  //   const drawLines = (
+  //     photovoltaicElements: SVGSVGElement[],
+  //     isBottom: boolean
+  //   ) => {
+  //     if (photovoltaicElements.length === 0) return;
+  //     const spacing = 10;
+  //     const offsets = 10;
+  //     const elementsWithCenter = photovoltaicElements.map((element) => {
+  //       const rect = element.getBoundingClientRect();
+  //       return {
+  //         element,
+  //         centerX: rect.x - linesSvgRect.x + rect.width / 2,
+  //         rect,
+  //       };
+  //     });
+  //     const perfectlyCenteredElement = elementsWithCenter.find(
+  //       (item) => Math.abs(item.centerX - casaCenterX) < 1
+  //     );
+  //     const elementsLeft = elementsWithCenter
+  //       .filter((item) => item.centerX < casaCenterX)
+  //       .sort((a, b) => b.centerX - a.centerX);
+  //     const elementsRight = elementsWithCenter
+  //       .filter((item) => item.centerX > casaCenterX)
+  //       .sort((a, b) => a.centerX - b.centerX);
+  //     const casaLine3StartX =
+  //       casaCenterX - ((photovoltaicElements.length - 1) * spacing) / 2;
+  //     const casaPointsX = Array.from(
+  //       { length: photovoltaicElements.length },
+  //       (_, i) => casaLine3StartX + i * spacing
+  //     );
+  //     elementsWithCenter.forEach((item, index) => {
+  //       const { element, rect, centerX } = item;
+  //       const elementX = rect.x - linesSvgRect.x;
+  //       const elementY = rect.y - linesSvgRect.y;
+  //       const elementWidth = rect.width;
+  //       const elementHeight = rect.height;
+  //       const elementVerticalX = centerX;
+  //       const isLeft = elementsLeft.some((left) => left.element === element);
+  //       const isRight = elementsRight.some(
+  //         (right) => right.element === element
+  //       );
+  //       const relativeIndex = isLeft
+  //         ? elementsLeft.findIndex((left) => left.element === element)
+  //         : elementsRight.findIndex((right) => right.element === element);
+  //       let line1Length = 10;
+  //       if (relativeIndex > 0) {
+  //         line1Length += relativeIndex * offsets;
+  //       }
+  //       const line1StartY = isBottom ? elementY : elementY + elementHeight;
+  //       const line1EndY = isBottom
+  //         ? elementY - line1Length
+  //         : elementY + elementHeight + line1Length;
+  //       let lineColor = "red";
+  //       if (
+  //         (isLeft && item === elementsLeft[0]) ||
+  //         (isRight && item === elementsRight[0])
+  //       ) {
+  //         lineColor = "green";
+  //       }
+  //       if (
+  //         perfectlyCenteredElement &&
+  //         perfectlyCenteredElement.element === element
+  //       ) {
+  //         lineColor = "blue";
+  //       }
+  //       const casaPointX = casaPointsX[index];
+  //       const casaPointY = isBottom ? casaY + casaHeight : casaY;
+  //       // Creazione di un unico path che unisce line1, line2 e line3
+  //       let path;
+  //       let d;
+  //       // Definizione del filtro per l'effetto blur (spostata fuori dal ciclo)
+  //       const createGlowFilter = () => {
+  //         const existingDefs = linesSvg.querySelector("defs");
+  //         if (existingDefs) return; // Evita di ridefinire il filtro se già esiste
+  //         const defs = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "defs"
+  //         );
+  //         const filter = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "filter"
+  //         );
+  //         filter.setAttribute("id", "glow-blur");
+  //         filter.setAttribute("x", "-50%");
+  //         filter.setAttribute("y", "-50%");
+  //         filter.setAttribute("width", "200%");
+  //         filter.setAttribute("height", "200%");
+  //         const feGaussianBlur = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "feGaussianBlur"
+  //         );
+  //         feGaussianBlur.setAttribute("in", "SourceGraphic");
+  //         feGaussianBlur.setAttribute("stdDeviation", "1.5"); // Intensità del blur
+  //         filter.appendChild(feGaussianBlur);
+  //         defs.appendChild(filter);
+  //         linesSvg.appendChild(defs);
+  //       };
+  //       createGlowFilter();
+  // if (element.id === "grid-power-direct") {
+  //   const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile") as SVGSVGElement;
+  //   if (!homeTile) {
+  //       console.error("Home Tile SVG element not found.");
+  //       return;
+  //   }
+  //   const homeTileRect = homeTile.getBoundingClientRect();
+  //   const homeTileX = homeTileRect.x - linesSvgRect.x;
+  //   const homeTileY = homeTileRect.y - linesSvgRect.y;
+  //   const homeTileHeight = homeTileRect.height;
+  //   const gridPowerX = elementX;
+  //   const gridPowerCenterY = elementY + elementHeight / 2;
+  //   const homeTileXEnd = homeTileX + homeTileRect.width;
+  //   const homeTileCenterY = homeTileY + homeTileHeight / 2;
+  //   // Linea statica verso home
+  //   const staticLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  //   staticLineHome.setAttribute("x1", gridPowerX.toString());
+  //   staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
+  //   staticLineHome.setAttribute("x2", homeTileXEnd.toString());
+  //   staticLineHome.setAttribute("y2", homeTileCenterY.toString());
+  //   staticLineHome.setAttribute("stroke", "#999");
+  //   staticLineHome.setAttribute("stroke-width", "2");
+  //   staticLineHome.setAttribute("stroke-dasharray", "7,5");
+  //   staticLineHome.setAttribute("stroke-linecap", "round");
+  //   linesSvg.appendChild(staticLineHome);
+  //         // Glow line se il valore è maggiore di 0
+  //         const stateValue = parseFloat(element.getAttribute("value") || "0");
+  //         if (stateValue > 0) {
+  //             const glowLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  //             glowLineHome.setAttribute("x1", gridPowerX.toString());
+  //             glowLineHome.setAttribute("y1", gridPowerCenterY.toString());
+  //             glowLineHome.setAttribute("x2", homeTileXEnd.toString());
+  //             glowLineHome.setAttribute("y2", homeTileCenterY.toString());
+  //             glowLineHome.setAttribute("stroke", "rgba(0, 191, 255, 0.8)");
+  //             glowLineHome.setAttribute("stroke-width", "4");
+  //             glowLineHome.setAttribute("stroke-dasharray", "10,15");
+  //             glowLineHome.setAttribute("stroke-linecap", "round");
+  //             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+  //             animate.setAttribute("attributeName", "stroke-dashoffset");
+  //             animate.setAttribute("from", "50");
+  //             animate.setAttribute("to", "0");
+  //             animate.setAttribute("dur", "2s");
+  //             animate.setAttribute("repeatCount", "indefinite");
+  //             glowLineHome.appendChild(animate);
+  //             linesSvg.appendChild(glowLineHome);
+  //         }
+  //         // Se è configurata la vendita di energia, collegare anche a casa
+  //         if (this.config.grid.energy_sell) {
+  //             const casaTile = this.shadowRoot.querySelector(".element-svg#casa") as SVGSVGElement;
+  //             if (casaTile) {
+  //                 const casaRect = casaTile.getBoundingClientRect();
+  //                 const casaX = casaRect.x - linesSvgRect.x;
+  //                 const casaY = casaRect.y - linesSvgRect.y;
+  //                 const casaHeight = casaRect.height;
+  //                 const casaCenterY = casaY + casaHeight / 2;
+  //                 const staticLineCasa = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  //                 staticLineCasa.setAttribute("x1", gridPowerX.toString());
+  //                 staticLineCasa.setAttribute("y1", gridPowerCenterY.toString());
+  //                 staticLineCasa.setAttribute("x2", casaX.toString());
+  //                 staticLineCasa.setAttribute("y2", casaCenterY.toString());
+  //                 staticLineCasa.setAttribute("stroke", "#999");
+  //                 staticLineCasa.setAttribute("stroke-width", "2");
+  //                 staticLineCasa.setAttribute("stroke-dasharray", "7,5");
+  //                 staticLineCasa.setAttribute("stroke-linecap", "round");
+  //                 linesSvg.appendChild(staticLineCasa);
+  //                 const energySellState = parseFloat(this.hass.states[this.config.grid.energy_sell]?.state || "0");
+  //                 if (energySellState > 0) {
+  //                     const glowLineCasa = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  //                     glowLineCasa.setAttribute("x1", gridPowerX.toString());
+  //                     glowLineCasa.setAttribute("y1", gridPowerCenterY.toString());
+  //                     glowLineCasa.setAttribute("x2", casaX.toString());
+  //                     glowLineCasa.setAttribute("y2", casaCenterY.toString());
+  //                     glowLineCasa.setAttribute("stroke", "rgba(0, 191, 255, 0.8)");
+  //                     glowLineCasa.setAttribute("stroke-width", "4");
+  //                     glowLineCasa.setAttribute("stroke-dasharray", "10,15");
+  //                     glowLineCasa.setAttribute("stroke-linecap", "round");
+  //                     const animateCasa = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+  //                     animateCasa.setAttribute("attributeName", "stroke-dashoffset");
+  //                     animateCasa.setAttribute("from", "50");
+  //                     animateCasa.setAttribute("to", "0");
+  //                     animateCasa.setAttribute("dur", "2s");
+  //                     animateCasa.setAttribute("repeatCount", "indefinite");
+  //                     glowLineCasa.appendChild(animateCasa);
+  //                     linesSvg.appendChild(glowLineCasa);
+  //                 }
+  //             }
+  //         }
+  //     } else {
+  //         // Logica originale per disegnare line1, line2 e line3
+  //         const casaPointX = casaPointsX[index];
+  //         const casaPointY = isBottom ? casaY + casaHeight : casaY;
+  //         d =
+  //           `M ${elementVerticalX} ${line1StartY} ` + // Inizio di line1
+  //           `L ${elementVerticalX} ${line1EndY} ` + // Fine di line1
+  //           `L ${casaPointX} ${line1EndY} ` + // Line2 orizzontale
+  //           `L ${casaPointX} ${casaPointY}`; // Line3 verticale
+  //         // Linea statica tratteggiata
+  //         const staticLine = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "path"
+  //         );
+  //         staticLine.setAttribute("d", d);
+  //         staticLine.setAttribute("stroke", "#999"); // Colore della linea statica
+  //         staticLine.setAttribute("stroke-width", "2");
+  //         staticLine.setAttribute("fill", "none");
+  //         staticLine.setAttribute("stroke-dasharray", "7,5"); // Tratteggio
+  //         staticLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
+  //         linesSvg.appendChild(staticLine);
+  //       }
+  //       // Linea dinamica per l'effetto bagliore
+  //       const glowLine = document.createElementNS(
+  //         "http://www.w3.org/2000/svg",
+  //         "path"
+  //       );
+  //       glowLine.setAttribute("d", d);
+  //       // Applica il filtro blur al glowLine
+  //       // glowLine.setAttribute('filter', 'url(#glow-blur)');
+  //       // Controlla l'id per configurare il colore
+  //       if (element.id === "grid-power") {
+  //         glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.6)"); // Colore azzurro
+  //       } else {
+  //         glowLine.setAttribute("stroke", "rgba(0, 255, 0, 0.6)"); // Colore verde per default
+  //       }
+  //       glowLine.setAttribute("stroke-width", "4");
+  //       glowLine.setAttribute("fill", "none");
+  //       glowLine.setAttribute("stroke-dasharray", "10,40"); // Configura tratteggio per il bagliore
+  //       glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
+  //       // Recupera il valore dell'attributo "value"
+  //       const stateValue = parseFloat(element.getAttribute("value") || "0");
+  //       // Logica per gli elementi
+  //       if (element.id === "battery") {
+  //         // const stateValue = parseFloat(this.config?.battery?.power || "0");
+  //         if (stateValue > 0) {
+  //           // Direzione inversa per battery con value > 0
+  //           const animate = document.createElementNS(
+  //             "http://www.w3.org/2000/svg",
+  //             "animate"
+  //           );
+  //           animate.setAttribute("attributeName", "stroke-dashoffset");
+  //           animate.setAttribute("from", "50"); // Direzione inversa
+  //           animate.setAttribute("to", "0");
+  //           animate.setAttribute("dur", "1s");
+  //           animate.setAttribute("repeatCount", "indefinite");
+  //           glowLine.appendChild(animate);
+  //           linesSvg.appendChild(glowLine);
+  //         } else if (stateValue < 0) {
+  //           // Direzione normale per battery con value < 0
+  //           const animate = document.createElementNS(
+  //             "http://www.w3.org/2000/svg",
+  //             "animate"
+  //           );
+  //           animate.setAttribute("attributeName", "stroke-dashoffset");
+  //           animate.setAttribute("from", "0"); // Direzione normale
+  //           animate.setAttribute("to", "50");
+  //           animate.setAttribute("dur", "1s");
+  //           animate.setAttribute("repeatCount", "indefinite");
+  //           glowLine.appendChild(animate);
+  //           linesSvg.appendChild(glowLine);
+  //         } else {
+  //           // Non aggiungere il glowLine se stateValue == 0
+  //           console.log(
+  //             `GlowLine nascosto per elemento con id "battery" e stateValue = 0`
+  //           );
+  //         }
+  //       } else if (element.id === "pv-element" || element.id === "grid-power") {
+  //         // Direzione inversa per pv-element e grid-power
+  //         const animate = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "animate"
+  //         );
+  //         animate.setAttribute("attributeName", "stroke-dashoffset");
+  //         animate.setAttribute("from", "50"); // Direzione inversa
+  //         animate.setAttribute("to", "0");
+  //         animate.setAttribute("dur", "1s");
+  //         animate.setAttribute("repeatCount", "indefinite");
+  //         glowLine.appendChild(animate);
+  //         linesSvg.appendChild(glowLine);
+  //       } else if (stateValue > 0) {
+  //         // Altri elementi con stateValue > 0
+  //         const animate = document.createElementNS(
+  //           "http://www.w3.org/2000/svg",
+  //           "animate"
+  //         );
+  //         animate.setAttribute("attributeName", "stroke-dashoffset");
+  //         animate.setAttribute("from", "0"); // Direzione normale
+  //         animate.setAttribute("to", "50");
+  //         animate.setAttribute("dur", "1s");
+  //         animate.setAttribute("repeatCount", "indefinite");
+  //         glowLine.appendChild(animate);
+  //         linesSvg.appendChild(glowLine);
+  //       }
+  //     });
+  //   };
+  //   drawLines(photovoltaicTopElements, false);
+  //   drawLines(photovoltaicBottomElements, true);
+  // }
   initializeLines() {
     const linesSvg = this.shadowRoot.querySelector(".lines-svg");
-    if (!linesSvg) {
-      return;
-    }
-    // Rimuovi tutte le linee esistenti
-    while (linesSvg.firstChild) {
-      linesSvg.removeChild(linesSvg.firstChild);
-    }
+    if (!linesSvg) return;
+    // Svuota linesSvg velocemente
+    linesSvg.innerHTML = "";
     const photovoltaicTopElements = Array.from(this.shadowRoot.querySelectorAll(".element-svg.top"));
     const photovoltaicBottomElements = Array.from(this.shadowRoot.querySelectorAll(".element-svg.bottom"));
     const casaSvg = this.shadowRoot.querySelector(".element-svg#casa");
-    if (!casaSvg) {
-      return;
-    }
+    if (!casaSvg) return;
     const linesSvgRect = linesSvg.getBoundingClientRect();
     const casaRect = casaSvg.getBoundingClientRect();
     const casaX = casaRect.x - linesSvgRect.x;
@@ -2486,6 +3733,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     const casaWidth = casaRect.width;
     const casaHeight = casaRect.height;
     const casaCenterX = casaX + casaWidth / 2;
+    this.createGlowFilter(linesSvg);
     const drawLines = (photovoltaicElements, isBottom) => {
       if (photovoltaicElements.length === 0) return;
       const spacing = 10;
@@ -2498,204 +3746,219 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           rect
         };
       });
-      const perfectlyCenteredElement = elementsWithCenter.find(item => Math.abs(item.centerX - casaCenterX) < 1);
       const elementsLeft = elementsWithCenter.filter(item => item.centerX < casaCenterX).sort((a, b) => b.centerX - a.centerX);
       const elementsRight = elementsWithCenter.filter(item => item.centerX > casaCenterX).sort((a, b) => a.centerX - b.centerX);
-      const casaLine3StartX = casaCenterX - (photovoltaicElements.length - 1) * spacing / 2;
+      const casaLineStartX = casaCenterX - (photovoltaicElements.length - 1) * spacing / 2;
       const casaPointsX = Array.from({
         length: photovoltaicElements.length
-      }, (_, i) => casaLine3StartX + i * spacing);
+      }, (_, i) => casaLineStartX + i * spacing);
+      const fragment = document.createDocumentFragment();
       elementsWithCenter.forEach((item, index) => {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         const {
           element,
           rect,
           centerX
         } = item;
+        const elementVerticalX = centerX;
+        const isLeft = elementsLeft.includes(item);
+        elementsRight.includes(item);
         const elementX = rect.x - linesSvgRect.x;
         const elementY = rect.y - linesSvgRect.y;
-        rect.width;
         const elementHeight = rect.height;
-        const elementVerticalX = centerX;
-        const isLeft = elementsLeft.some(left => left.element === element);
-        const isRight = elementsRight.some(right => right.element === element);
-        const relativeIndex = isLeft ? elementsLeft.findIndex(left => left.element === element) : elementsRight.findIndex(right => right.element === element);
+        const relativeIndex = isLeft ? elementsLeft.findIndex(left => left === item) : elementsRight.findIndex(right => right === item);
         let line1Length = 10;
         if (relativeIndex > 0) {
           line1Length += relativeIndex * offsets;
         }
-        const line1StartY = isBottom ? elementY : elementY + elementHeight;
-        const line1EndY = isBottom ? elementY - line1Length : elementY + elementHeight + line1Length;
-        if (isLeft && item === elementsLeft[0] || isRight && item === elementsRight[0]) ;
-        if (perfectlyCenteredElement && perfectlyCenteredElement.element === element) ;
-        casaPointsX[index];
-        let d;
-        // Definizione del filtro per l'effetto blur (spostata fuori dal ciclo)
-        const createGlowFilter = () => {
-          const existingDefs = linesSvg.querySelector("defs");
-          if (existingDefs) return; // Evita di ridefinire il filtro se già esiste
-          const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-          const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
-          filter.setAttribute("id", "glow-blur");
-          filter.setAttribute("x", "-50%");
-          filter.setAttribute("y", "-50%");
-          filter.setAttribute("width", "200%");
-          filter.setAttribute("height", "200%");
-          const feGaussianBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-          feGaussianBlur.setAttribute("in", "SourceGraphic");
-          feGaussianBlur.setAttribute("stdDeviation", "1.5"); // Intensità del blur
-          filter.appendChild(feGaussianBlur);
-          defs.appendChild(filter);
-          linesSvg.appendChild(defs);
-        };
-        createGlowFilter();
-        if (element.id === "grid-power-direct") {
-          const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile");
-          if (!homeTile) {
-            console.error("Home Tile SVG element not found.");
-            return;
-          }
-          const homeTileRect = homeTile.getBoundingClientRect();
-          const homeTileX = homeTileRect.x - linesSvgRect.x;
-          const homeTileY = homeTileRect.y - linesSvgRect.y;
-          const homeTileHeight = homeTileRect.height;
-          // Calcola i punti di partenza e di arrivo
-          const gridPowerX = elementX;
-          const gridPowerCenterY = elementY + elementHeight / 2;
-          const homeTileXEnd = homeTileX + homeTileRect.width;
-          const homeTileCenterY = homeTileY + homeTileHeight / 2;
-          // Disegna una linea statica tratteggiata
-          const staticLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-          staticLine.setAttribute("x1", gridPowerX.toString()); // Punto iniziale X
-          staticLine.setAttribute("y1", gridPowerCenterY.toString()); // Punto iniziale Y
-          staticLine.setAttribute("x2", homeTileXEnd.toString()); // Punto finale X
-          staticLine.setAttribute("y2", homeTileCenterY.toString()); // Punto finale Y
-          staticLine.setAttribute("stroke", "#999"); // Colore della linea statica
-          staticLine.setAttribute("stroke-width", "2"); // Spessore
-          staticLine.setAttribute("stroke-dasharray", "7,5"); // Tratteggio
-          staticLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-          linesSvg.appendChild(staticLine);
-          // Aggiungi una linea glow se il valore è maggiore di 0
-          const stateValue = parseFloat(element.getAttribute("value") || "0");
-          if (stateValue > 0) {
-            // Creazione della glowLine
-            const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            glowLine.setAttribute("x1", gridPowerX.toString()); // Punto iniziale X
-            glowLine.setAttribute("y1", gridPowerCenterY.toString()); // Punto iniziale Y
-            glowLine.setAttribute("x2", homeTileXEnd.toString()); // Punto finale X
-            glowLine.setAttribute("y2", homeTileCenterY.toString()); // Punto finale Y
-            glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)"); // Colore azzurro
-            glowLine.setAttribute("stroke-width", "4"); // Spessore
-            glowLine.setAttribute("stroke-dasharray", "10,15"); // Tratteggio per il bagliore
-            glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-            // Aggiungi l'animazione alla glowLine
+        const line1StartY = isBottom ? rect.y - linesSvgRect.y : rect.y + rect.height - linesSvgRect.y;
+        const line1EndY = isBottom ? line1StartY - line1Length : line1StartY + line1Length;
+        const casaPointX = casaPointsX[index];
+        const casaPointY = isBottom ? casaY + casaHeight : casaY;
+        const stateValue = parseFloat(element.getAttribute("value") || "0");
+        const d = `M ${elementVerticalX} ${line1StartY} L ${elementVerticalX} ${line1EndY} L ${casaPointX} ${line1EndY} L ${casaPointX} ${casaPointY}`;
+        if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.energy_power) {
+          const staticLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          staticLine.setAttribute("d", d);
+          staticLine.setAttribute("stroke", "#999");
+          staticLine.setAttribute("stroke-width", "2");
+          staticLine.setAttribute("fill", "none");
+          staticLine.setAttribute("stroke-dasharray", "7,5");
+          staticLine.setAttribute("stroke-linecap", "round");
+          fragment.appendChild(staticLine);
+        }
+        if (element.id === "grid-power-direct" && ((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.energy_power)) {
+          const gridEnergyValue = parseFloat(((_e = this.hass.states[this.config.grid.energy_power]) === null || _e === void 0 ? void 0 : _e.state) || "0");
+          if (gridEnergyValue > 0) {
+            const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            glowLine.setAttribute("d", d);
+            glowLine.setAttribute("stroke", "rgba(0, 255, 0, 0.6)");
+            glowLine.setAttribute("stroke-width", "4");
+            glowLine.setAttribute("fill", "none");
+            glowLine.setAttribute("stroke-dasharray", "10,40");
+            glowLine.setAttribute("stroke-linecap", "round");
             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
-            animate.setAttribute("from", "50"); // Direzione inversa
+            animate.setAttribute("from", "0");
+            animate.setAttribute("to", "50");
+            animate.setAttribute("dur", "2s");
+            animate.setAttribute("repeatCount", "indefinite");
+            glowLine.appendChild(animate);
+            fragment.appendChild(glowLine);
+          }
+          if (element.id === "grid-power-direct") {
+            const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile");
+            if (!homeTile) {
+              console.error("Home Tile SVG element not found.");
+              return;
+            }
+            const homeTileRect = homeTile.getBoundingClientRect();
+            const homeTileX = homeTileRect.x - linesSvgRect.x;
+            const homeTileY = homeTileRect.y - linesSvgRect.y;
+            const homeTileHeight = homeTileRect.height;
+            const gridPowerX = elementX;
+            const gridPowerCenterY = elementY + elementHeight / 2;
+            const homeTileXEnd = homeTileX + homeTileRect.width;
+            const homeTileCenterY = homeTileY + homeTileHeight / 2;
+            // Linea statica verso home
+            const staticLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            staticLineHome.setAttribute("x1", gridPowerX.toString());
+            staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
+            staticLineHome.setAttribute("x2", homeTileXEnd.toString());
+            staticLineHome.setAttribute("y2", homeTileCenterY.toString());
+            staticLineHome.setAttribute("stroke", "#999");
+            staticLineHome.setAttribute("stroke-width", "2");
+            staticLineHome.setAttribute("stroke-dasharray", "7,5");
+            staticLineHome.setAttribute("stroke-linecap", "round");
+            linesSvg.appendChild(staticLineHome);
+            if (stateValue > 0) {
+              // Creazione della glowLine
+              const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+              glowLine.setAttribute("x1", gridPowerX.toString()); // Punto iniziale X
+              glowLine.setAttribute("y1", gridPowerCenterY.toString()); // Punto iniziale Y
+              glowLine.setAttribute("x2", homeTileXEnd.toString()); // Punto finale X
+              glowLine.setAttribute("y2", homeTileCenterY.toString()); // Punto finale Y
+              glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)"); // Colore azzurro
+              glowLine.setAttribute("stroke-width", "4"); // Spessore
+              glowLine.setAttribute("stroke-dasharray", "10,15"); // Tratteggio per il bagliore
+              glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
+              // Aggiungi l'animazione alla glowLine
+              const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+              animate.setAttribute("attributeName", "stroke-dashoffset");
+              animate.setAttribute("from", "50"); // Direzione inversa
+              animate.setAttribute("to", "0");
+              animate.setAttribute("dur", "2s");
+              animate.setAttribute("repeatCount", "indefinite");
+              glowLine.appendChild(animate);
+              linesSvg.appendChild(glowLine);
+            }
+          }
+        }
+        if (element.id === "pv-element" && stateValue > 0) {
+          const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          glowLine.setAttribute("d", d);
+          glowLine.setAttribute("stroke", "rgba(255, 255, 0, 0.6)");
+          glowLine.setAttribute("stroke-width", "4");
+          glowLine.setAttribute("fill", "none");
+          glowLine.setAttribute("stroke-dasharray", "10,40");
+          glowLine.setAttribute("stroke-linecap", "round");
+          const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+          animate.setAttribute("attributeName", "stroke-dashoffset");
+          animate.setAttribute("from", "50");
+          animate.setAttribute("to", "0");
+          animate.setAttribute("dur", "2s");
+          animate.setAttribute("repeatCount", "indefinite");
+          glowLine.appendChild(animate);
+          fragment.appendChild(glowLine);
+        }
+        if (element.id === "home_tile" && stateValue > 0) {
+          const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          glowLine.setAttribute("d", d);
+          glowLine.setAttribute("stroke", "rgba(255, 255, 0, 0.6)");
+          glowLine.setAttribute("stroke-width", "4");
+          glowLine.setAttribute("fill", "none");
+          glowLine.setAttribute("stroke-dasharray", "10,40");
+          glowLine.setAttribute("stroke-linecap", "round");
+          const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+          animate.setAttribute("attributeName", "stroke-dashoffset");
+          animate.setAttribute("from", "0");
+          animate.setAttribute("to", "50");
+          animate.setAttribute("dur", "2s");
+          animate.setAttribute("repeatCount", "indefinite");
+          glowLine.appendChild(animate);
+          fragment.appendChild(glowLine);
+        }
+        if (element.id === "battery" && stateValue != 0) {
+          const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          glowLine.setAttribute("d", d);
+          glowLine.setAttribute("stroke", "rgba(255, 255, 0, 0.6)");
+          glowLine.setAttribute("stroke-width", "4");
+          glowLine.setAttribute("fill", "none");
+          glowLine.setAttribute("stroke-dasharray", "10,40");
+          glowLine.setAttribute("stroke-linecap", "round");
+          if (stateValue < 0 || ((_g = (_f = this.config) === null || _f === void 0 ? void 0 : _f.battery) === null || _g === void 0 ? void 0 : _g.energy_to_inverter) > 0) {
+            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animate.setAttribute("attributeName", "stroke-dashoffset");
+            animate.setAttribute("from", "0");
+            animate.setAttribute("to", "50");
+            animate.setAttribute("dur", "2s");
+            animate.setAttribute("repeatCount", "indefinite");
+            glowLine.appendChild(animate);
+            fragment.appendChild(glowLine);
+          } else if (stateValue > 0 || ((_j = (_h = this.config) === null || _h === void 0 ? void 0 : _h.battery) === null || _j === void 0 ? void 0 : _j.energy_to_inverter) > 0) {
+            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animate.setAttribute("attributeName", "stroke-dashoffset");
+            animate.setAttribute("from", "50");
             animate.setAttribute("to", "0");
             animate.setAttribute("dur", "2s");
             animate.setAttribute("repeatCount", "indefinite");
             glowLine.appendChild(animate);
-            linesSvg.appendChild(glowLine);
+            fragment.appendChild(glowLine);
           }
-        } else {
-          // Logica originale per disegnare line1, line2 e line3
-          const casaPointX = casaPointsX[index];
-          const casaPointY = isBottom ? casaY + casaHeight : casaY;
-          d = `M ${elementVerticalX} ${line1StartY} ` +
-          // Inizio di line1
-          `L ${elementVerticalX} ${line1EndY} ` +
-          // Fine di line1
-          `L ${casaPointX} ${line1EndY} ` +
-          // Line2 orizzontale
-          `L ${casaPointX} ${casaPointY}`; // Line3 verticale
-          // Linea statica tratteggiata
-          const staticLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          staticLine.setAttribute("d", d);
-          staticLine.setAttribute("stroke", "#999"); // Colore della linea statica
-          staticLine.setAttribute("stroke-width", "2");
-          staticLine.setAttribute("fill", "none");
-          staticLine.setAttribute("stroke-dasharray", "7,5"); // Tratteggio
-          staticLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-          linesSvg.appendChild(staticLine);
-        }
-        // Linea dinamica per l'effetto bagliore
-        const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        glowLine.setAttribute("d", d);
-        // Applica il filtro blur al glowLine
-        // glowLine.setAttribute('filter', 'url(#glow-blur)');
-        // Controlla l'id per configurare il colore
-        if (element.id === "grid-power") {
-          glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.6)"); // Colore azzurro
-        } else {
-          glowLine.setAttribute("stroke", "rgba(0, 255, 0, 0.6)"); // Colore verde per default
-        }
-        glowLine.setAttribute("stroke-width", "4");
-        glowLine.setAttribute("fill", "none");
-        glowLine.setAttribute("stroke-dasharray", "10,40"); // Configura tratteggio per il bagliore
-        glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-        // Recupera il valore dell'attributo "value"
-        const stateValue = parseFloat(element.getAttribute("value") || "0");
-        console.log('statevalue', stateValue);
-        // Logica per gli elementi
-        if (element.id === "battery") {
-          // const stateValue = parseFloat(this.config?.battery?.power || "0");
-          if (stateValue > 0) {
-            // Direzione inversa per battery con value > 0
-            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
-            animate.setAttribute("attributeName", "stroke-dashoffset");
-            animate.setAttribute("from", "50"); // Direzione inversa
-            animate.setAttribute("to", "0");
-            animate.setAttribute("dur", "1s");
-            animate.setAttribute("repeatCount", "indefinite");
-            glowLine.appendChild(animate);
-            linesSvg.appendChild(glowLine);
-          } else if (stateValue < 0) {
-            // Direzione normale per battery con value < 0
-            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
-            animate.setAttribute("attributeName", "stroke-dashoffset");
-            animate.setAttribute("from", "0"); // Direzione normale
-            animate.setAttribute("to", "50");
-            animate.setAttribute("dur", "1s");
-            animate.setAttribute("repeatCount", "indefinite");
-            glowLine.appendChild(animate);
-            linesSvg.appendChild(glowLine);
-          } else {
-            // Non aggiungere il glowLine se stateValue == 0
-            console.log(`GlowLine nascosto per elemento con id "battery" e stateValue = 0`);
-          }
-        } else if (element.id === "pv-element" || element.id === "grid-power") {
-          // Direzione inversa per pv-element e grid-power
-          const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
-          animate.setAttribute("attributeName", "stroke-dashoffset");
-          animate.setAttribute("from", "50"); // Direzione inversa
-          animate.setAttribute("to", "0");
-          animate.setAttribute("dur", "1s");
-          animate.setAttribute("repeatCount", "indefinite");
-          glowLine.appendChild(animate);
-          linesSvg.appendChild(glowLine);
-        } else if (stateValue > 0) {
-          // Altri elementi con stateValue > 0
-          const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
-          animate.setAttribute("attributeName", "stroke-dashoffset");
-          animate.setAttribute("from", "0"); // Direzione normale
-          animate.setAttribute("to", "50");
-          animate.setAttribute("dur", "1s");
-          animate.setAttribute("repeatCount", "indefinite");
-          glowLine.appendChild(animate);
-          linesSvg.appendChild(glowLine);
         }
       });
+      linesSvg.appendChild(fragment);
     };
     drawLines(photovoltaicTopElements, false);
     drawLines(photovoltaicBottomElements, true);
   }
+  createGlowFilter(linesSvg) {
+    if (linesSvg.querySelector("#glow-blur")) return;
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+    filter.setAttribute("id", "glow-blur");
+    const feGaussianBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+    feGaussianBlur.setAttribute("in", "SourceGraphic");
+    feGaussianBlur.setAttribute("stdDeviation", "1.5");
+    filter.appendChild(feGaussianBlur);
+    defs.appendChild(filter);
+    linesSvg.appendChild(defs);
+  }
+  getLineColor(element) {
+    return element.id === "grid-power" ? "rgba(0, 191, 255, 0.6)" : "rgba(0, 255, 0, 0.6)";
+  }
+  createGlowAnimation(glowLine, from, to) {
+    const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+    animate.setAttribute("attributeName", "stroke-dashoffset");
+    animate.setAttribute("from", from);
+    animate.setAttribute("to", to);
+    animate.setAttribute("dur", "1s");
+    animate.setAttribute("repeatCount", "indefinite");
+    glowLine.appendChild(animate);
+  }
   _applyDynamicStyles() {
     var _a, _b;
+    const verticalCard = this.isVericarlCard();
+    const panelMode = this.isPanelMode();
+    const cardHeight = Math.round(this.getBoundingClientRect().height);
+    this.sliderHeight = !verticalCard && panelMode ? cardHeight / 31.8 : 30;
     const currentTheme = (_a = this.hass.themes) === null || _a === void 0 ? void 0 : _a.darkMode; // Verifica se il tema è scuro
     const shadowDark_dark = "rgba(0, 0, 0, 0.3)";
     const shadowLight_dark = "rgba(255, 255, 255, 0.1)";
     const shadowDark_light = "rgba(0, 0, 0, 0.15)";
     const shadowLight_light = "rgba(125, 125, 125, 0.1)";
+    // const heightValue = !verticalCard && panelMode ? '36px' : '30px';
+    // console.log("heightValue", this.sliderHeight);
     const darkThemeStyles = `
   input[type='range'] {
     background-color: transparent;
@@ -2703,13 +3966,13 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       6px 6px 6px ${shadowDark_dark} inset, 
       -4px -4px 6px ${shadowLight_dark} inset;
     display: block;
-    padding: 0 1.6px;
+    // padding: 0 1.6px;
     width: 100%;
-    height: 30px;
+    height: ${this.sliderHeight}px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border-radius: 15px;
+    border-radius: 500px;
   }
 `;
     const lightThemeStyles = `
@@ -2719,39 +3982,49 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       6px 6px 6px ${shadowLight_light} inset, 
       -4px -4px 6px ${shadowDark_light} inset;
     display: block;
-    padding: 0 1.6px;
+    // padding: 0 1.6px;
     width: 100%;
-    height: 30px;
+    height: ${this.sliderHeight}px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border-radius: 15px;
+    border-radius: 500px;
   }
 
     `;
+    const sliderHeightVertical = `
+      input[type="range"]::-webkit-slider-thumb {
+      width: 24px;
+      height: 24px;
+      } 
+    `;
+    const sliderHeightHorizontal = `
+      input[type="range"]::-webkit-slider-thumb {
+      width: ${this.sliderHeight}px;
+      height: ${this.sliderHeight}px;
+      } 
+    `;
     const styleSheet = document.createElement("style");
     styleSheet.innerHTML = currentTheme ? darkThemeStyles : lightThemeStyles;
+    styleSheet.innerHTML += !verticalCard && panelMode ? sliderHeightHorizontal : sliderHeightVertical;
     (_b = this.shadowRoot) === null || _b === void 0 ? void 0 : _b.appendChild(styleSheet);
   }
   _updateLabelPosition(slider) {
     var _a;
-    let offsetValue;
-    if (this.panelMode) {
-      offsetValue = 0.2;
-    } else {
-      offsetValue = 1;
-    }
+    if (this.panelMode) ;
     const label = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector(".range-thumb-label");
     if (!label || !slider) return;
-    const sliderWidth = slider.offsetWidth - 2;
-    const thumbWidth = 24; // Larghezza del thumb in px (aggiorna se diversa)
+    label.clientHeight;
+    const sliderWidth = slider.offsetWidth;
+    const thumbWidth = this.sliderHeight; // Larghezza del thumb in px (aggiorna se diversa)
     const min = parseInt(slider.min, 10);
     const max = parseInt(slider.max, 10);
-    const percentage = (+slider.value - min) / (max - min) * 100 + offsetValue;
+    const percentage = (+slider.value - min) / (max - min) * 100;
     // Calcola la posizione del label in px
     const labelPosition = percentage / 100 * (sliderWidth - thumbWidth) + thumbWidth / 2;
     // Aggiorna lo stile del label per posizionarlo correttamente sopra il thumb
     label.style.left = `${labelPosition}px`;
+    // console.log("position", labelPosition);
   }
   _addTicks() {
     var _a, _b, _c;
@@ -2778,7 +4051,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     const tickStart = document.createElement("span");
     tickStart.className = "range__tick";
     tickStart.textContent = min.toString();
-    tickStart.style.position = "absolute";
+    // tickStart.style.position = "absolute";
     tickStart.style.left = "0%"; // Il primo tick è sempre all'inizio (0%)
     tickContainer.appendChild(tickStart);
     // Aggiunge i tick successivi (multipli di 5 fino a 30)
@@ -2893,7 +4166,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           type: "line",
           color: "rgba(0, 0, 255, 1)"
         }, {
-          name: "Intervallo (min - max)",
+          name: "min - max",
           data: detailedForecast.filter(item => {
             const min = item.pv_estimate10;
             const max = item.pv_estimate90;
@@ -3113,10 +4386,12 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       });
     };
     return Promise.all([fetchAllData(), fetchTotalPvMeter()]).then(([recorderResponse, totalPvPowerResponse]) => {
-      var _a, _b, _c;
+      var _a, _b, _c, _d, _e;
       const formattedData = weekEntities.map(sensorId => {
-        var _a, _b;
+        var _a, _b, _c, _d;
         const sensorValues = recorderResponse[sensorId] || [];
+        const unit = ((_b = (_a = this.hass.states[sensorId]) === null || _a === void 0 ? void 0 : _a.attributes) === null || _b === void 0 ? void 0 : _b.unit_of_measurement) || "";
+        const needsConversion = unit.toLowerCase() === "w";
         if (sensorValues.length < 2) {
           console.warn(`Dati insufficienti per ${sensorId}, impossibile rimuovere il valore iniziale.`);
           return {
@@ -3126,9 +4401,12 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
         let previousSum = sensorValues[0].sum;
         return {
-          name: ((_b = (_a = this.hass.states[sensorId]) === null || _a === void 0 ? void 0 : _a.attributes) === null || _b === void 0 ? void 0 : _b.friendly_name) || sensorId,
+          name: ((_d = (_c = this.hass.states[sensorId]) === null || _c === void 0 ? void 0 : _c.attributes) === null || _d === void 0 ? void 0 : _d.friendly_name) || sensorId,
           data: sensorValues.slice(1).map(entry => {
-            const dailyValue = entry.sum - previousSum;
+            let dailyValue = entry.sum - previousSum;
+            if (needsConversion) {
+              dailyValue /= 1000; // Converti da W a kW
+            }
             previousSum = entry.sum;
             return {
               x: new Date(entry.start).getTime(),
@@ -3149,10 +4427,15 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
             console.warn(`Dati insufficienti per ${this.config.total_pv_power}, impossibile rimuovere il valore iniziale.`);
           } else {
             let previousSum = totalData[0].sum;
+            const unit = ((_b = (_a = this.hass.states[this.config.total_pv_power]) === null || _a === void 0 ? void 0 : _a.attributes) === null || _b === void 0 ? void 0 : _b.unit_of_measurement) || "";
+            const needsConversion = unit.toLowerCase() === "w";
             totalSeries = {
-              name: ((_b = (_a = this.hass.states[this.config.total_pv_power]) === null || _a === void 0 ? void 0 : _a.attributes) === null || _b === void 0 ? void 0 : _b.friendly_name) || this.config.total_pv_power,
+              name: ((_d = (_c = this.hass.states[this.config.total_pv_power]) === null || _c === void 0 ? void 0 : _c.attributes) === null || _d === void 0 ? void 0 : _d.friendly_name) || this.config.total_pv_power,
               data: totalData.slice(1).map(entry => {
-                const dailyValue = entry.sum - previousSum;
+                let dailyValue = entry.sum - previousSum;
+                if (needsConversion) {
+                  dailyValue /= 1000;
+                }
                 previousSum = entry.sum;
                 return {
                   x: new Date(entry.start).getTime(),
@@ -3170,7 +4453,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
               sum += ((_a = series.data[i]) === null || _a === void 0 ? void 0 : _a.y) || 0;
             });
             totalSeries.data.push({
-              x: ((_c = formattedData[0].data[i]) === null || _c === void 0 ? void 0 : _c.x) || 0,
+              x: ((_e = formattedData[0].data[i]) === null || _e === void 0 ? void 0 : _e.x) || 0,
               y: sum
             });
           }
@@ -3184,6 +4467,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         series: series
       };
       this.sommaYUltimi7(this.chartdata);
+      // console.log('chart data: ', this.chartdata);
+      // console.log('sensori', this.hass.states['sensor.2_condizionatore_channel_1_power']);
       this.requestUpdate();
     }).catch(error => {
       console.error("Errore nel recupero dei dati:", error);
@@ -3197,6 +4482,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     }
     // Prendiamo gli ultimi 7 elementi dell'array 'data'
     const ultimiSette = serieTotale.data.slice(-7);
+    // console.log("ultimi7pv", ultimiSette);
     // Sommiamo i valori di y dei punti presi
     const somma = ultimiSette.reduce((acc, punto) => acc + punto.y, 0);
     this.totalWekkPvProduction = somma.toFixed(2);
@@ -3427,8 +4713,10 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
   }
   async initializeHeatmapChart2(formattedData) {
     var _a;
-    const totalMaxPower = this.entities.reduce((sum, entity) => sum + (entity.max_power || 0), 0) / 1000;
-    const step = parseFloat((totalMaxPower / 5).toFixed(2));
+    // const totalMaxPower =
+    //   this.entities.reduce((sum, entity) => sum + (entity.max_power || 0), 0) /
+    //   1000;
+    const step = parseFloat((this.totalMaxPower / 5).toFixed(2));
     const totalMaxPowerArray = Array.from({
       length: 6
     }, (_, i) => parseFloat(((i + 1) * step).toFixed(2)));

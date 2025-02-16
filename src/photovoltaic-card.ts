@@ -2947,7 +2947,7 @@ class PhotovoltaicCard extends LitElement {
         (point) => point.y !== null && point.y !== undefined && !isNaN(point.y)
       ),
     }));
-    console.log('groupseries',groupedSeries);
+    console.log('sensore',this.hass.states['sensor.ftv_pv1_power']);
 
     const slider = this.shadowRoot?.querySelector(
       'input[type="range"]'

@@ -4141,7 +4141,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       name: serie.name,
       data: this._groupByNearest(serie.data, intervalMs, minTimestamp, maxTimestamp).filter(point => point.y !== null && point.y !== undefined && !isNaN(point.y))
     }));
-    console.log('groupseries', groupedSeries);
+    console.log('sensore', this.hass.states['sensor.ftv_pv1_power']);
     const slider = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector('input[type="range"]');
     if (slider) {
       this._updateLabelPosition(slider); // Aggiorna la posizione dell'etichetta

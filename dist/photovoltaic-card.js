@@ -4085,7 +4085,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     }, 300);
   }
   async _fetchTodayData() {
-    var _a, _b;
+    var _a, _b, _c;
     const entities = this.config.entities.map(item => item);
     const startTime = new Date();
     startTime.setHours(0, 0, 0, 0); // Inizio del giorno corrente
@@ -4095,20 +4095,22 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     try {
       for (const entity of entities) {
         const {
-          pv: entityId,
-          unit_of_mesurament
+          pv: entityId
         } = entity;
+        // Recupera l'unità di misura da Home Assistant se disponibile
+        const entityState = this.hass.states[entityId];
+        const unit_of_maesurament = ((_a = entityState === null || entityState === void 0 ? void 0 : entityState.attributes) === null || _a === void 0 ? void 0 : _a.unit_of_measurement) || entity.unit_of_maesurament || "w";
         const response = await this.hass.callApi("GET", `history/period/${startTime.toISOString()}?filter_entity_id=${entityId}&end_time=${endTime.toISOString()}`);
         const historyData = response[0] || [];
         const chartData = historyData.map(entry => {
           const rawValue = parseFloat(entry.state);
-          const value = unit_of_mesurament.toLowerCase() === "watt" ? rawValue / 1000 : rawValue;
+          const value = ["watt", "w"].includes(unit_of_maesurament.toLowerCase()) ? rawValue / 1000 : rawValue;
           return {
             x: new Date(entry.last_updated).getTime(),
             y: value
           };
         }).filter(point => point.y !== null && !isNaN(point.y));
-        const friendlyName = (_b = (_a = this.hass.states[entityId]) === null || _a === void 0 ? void 0 : _a.attributes) === null || _b === void 0 ? void 0 : _b.friendly_name;
+        const friendlyName = (_c = (_b = this.hass.states[entityId]) === null || _b === void 0 ? void 0 : _b.attributes) === null || _c === void 0 ? void 0 : _c.friendly_name;
         seriesData.push({
           name: friendlyName || entityId,
           data: chartData

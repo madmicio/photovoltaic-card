@@ -2876,21 +2876,28 @@ class PhotovoltaicCard extends LitElement {
 
     try {
       for (const entity of entities) {
-        const { pv: entityId, unit_of_mesurament } = entity;
+          const { pv: entityId } = entity;
 
-        const response = await this.hass.callApi(
-          "GET",
-          `history/period/${startTime.toISOString()}?filter_entity_id=${entityId}&end_time=${endTime.toISOString()}`
-        );
+          // Recupera l'unità di misura da Home Assistant se disponibile
+          const entityState = this.hass.states[entityId];
+          const unit_of_maesurament =
+              entityState?.attributes?.unit_of_measurement ||
+              entity.unit_of_maesurament ||
+              "w";
+
+          const response = await this.hass.callApi(
+              "GET",
+              `history/period/${startTime.toISOString()}?filter_entity_id=${entityId}&end_time=${endTime.toISOString()}`
+          );
 
         const historyData = response[0] || [];
         const chartData = historyData
           .map((entry: any) => {
             const rawValue = parseFloat(entry.state);
             const value =
-              unit_of_mesurament.toLowerCase() === "watt"
-                ? rawValue / 1000
-                : rawValue;
+              ["watt", "w"].includes(unit_of_maesurament.toLowerCase())
+                  ? rawValue / 1000
+                  : rawValue;
             return {
               x: new Date(entry.last_updated).getTime(),
               y: value,

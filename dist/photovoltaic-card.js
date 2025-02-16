@@ -4115,7 +4115,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         });
       }
       this.seriesData = seriesData;
-      console.log('copiami il contenuto di questo array, dati istantanei', this.seriesData);
       this._initializeChart(this.seriesData); // Inizializza il primo grafico con i dati di oggi
     } catch (error) {
       console.error("Errore durante il recupero dei dati di oggi:", error);
@@ -4142,6 +4141,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       name: serie.name,
       data: this._groupByNearest(serie.data, intervalMs, minTimestamp, maxTimestamp).filter(point => point.y !== null && point.y !== undefined && !isNaN(point.y))
     }));
+    console.log('groupseries', groupedSeries);
     const slider = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector('input[type="range"]');
     if (slider) {
       this._updateLabelPosition(slider); // Aggiorna la posizione dell'etichetta
@@ -4463,7 +4463,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         series: series
       };
       this.sommaYUltimi7(this.chartdata);
-      console.log('copiami il contenuto di questo array, dati giornalieri', this.chartdata);
       // console.log('chart data: ', this.chartdata);
       // console.log('sensori', this.hass.states['sensor.2_condizionatore_channel_1_power']);
       this.requestUpdate();

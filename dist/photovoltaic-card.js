@@ -824,6 +824,7 @@ function gridPower(gridPower) {
 //            `;
 //   }
 function home(totalPower, pvPercentage, batteryPercentage) {
+  console.log(totalPower, pvPercentage, batteryPercentage);
   return x`
     <svg id="home" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
       <defs>
@@ -870,7 +871,8 @@ function home(totalPower, pvPercentage, batteryPercentage) {
               <stop offset=".${pvPercentage}" stop-color="#51d400"/>
               <stop offset=".${pvPercentage}" stop-color="#ff9115"/>
               <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#2ac0ff"/>
+              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="${pvPercentage + batteryPercentage == 100 ? '#ff9115' : '#2ac0ff'}"/>
+              
         </linearGradient>
       </defs>
       <g id="casa">
@@ -2259,7 +2261,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       batteryTotal = ((_f = this.hass.states[this.config.battery.power]) === null || _f === void 0 ? void 0 : _f.state) ? Math.round(parseFloat(this.hass.states[this.config.battery.power].state)) || 0 : 0;
     }
     // Calcola il totale di potenza
-    const totalPower = total + batteryTotal + gridTotal;
+    const totalPower = total + (batteryTotal > 0 ? batteryTotal : 0) + (gridTotal > 0 ? gridTotal : 0);
+    // console.log(totalPower, total, batteryTotal, gridTotal);
     // Calcola le percentuali
     const pvPercentage = totalPower > 0 ? Math.round(pvTotal / totalPower * 100) : 0;
     const batteryPercentage = totalPower > 0 && batteryTotal > 0 ? Math.round(batteryTotal / totalPower * 100) : 0;
@@ -4575,15 +4578,13 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
   }
   // ************************* FINE GRAFICO daily *****************************
   async _getApexCharts() {
-    if (window.ApexCharts) {
-      return window.ApexCharts;
-    } else {
+    if (!window.ApexCharts) {
       const {
         default: ApexCharts
       } = await import('./apexcharts.esm-DBB7GLaP.js');
       window.ApexCharts = ApexCharts;
-      return ApexCharts;
     }
+    return window.ApexCharts;
   }
   // *********************************      test new heatmap ****************************
   waitForApexCharts() {

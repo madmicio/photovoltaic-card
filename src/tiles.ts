@@ -174,7 +174,7 @@ export function pvIcon(state) {
 //   }
 
   export function home(totalPower, pvPercentage, batteryPercentage) {
-
+    console.log(totalPower, pvPercentage, batteryPercentage );
     return html`
     <svg id="home" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
       <defs>
@@ -221,7 +221,8 @@ export function pvIcon(state) {
               <stop offset=".${pvPercentage}" stop-color="#51d400"/>
               <stop offset=".${pvPercentage}" stop-color="#ff9115"/>
               <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#2ac0ff"/>
+              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="${pvPercentage + batteryPercentage == 100 ? '#ff9115': '#2ac0ff'}"/>
+              
         </linearGradient>
       </defs>
       <g id="casa">

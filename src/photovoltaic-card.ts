@@ -588,8 +588,9 @@ class PhotovoltaicCard extends LitElement {
     }
 
     // Calcola il totale di potenza
-    const totalPower = total + batteryTotal + gridTotal;
+    const totalPower = total + (batteryTotal > 0 ? batteryTotal : 0) + (gridTotal > 0 ? gridTotal : 0);
 
+    // console.log(totalPower, total, batteryTotal, gridTotal);
     // Calcola le percentuali
     const pvPercentage =
       totalPower > 0 ? Math.round((pvTotal / totalPower) * 100) : 0;
@@ -3458,15 +3459,12 @@ class PhotovoltaicCard extends LitElement {
   // ************************* FINE GRAFICO daily *****************************
 
   private async _getApexCharts() {
-    if (window.ApexCharts) {
-      return window.ApexCharts;
-    } else {
+    if (!window.ApexCharts) {
       const { default: ApexCharts } = await import("apexcharts");
       window.ApexCharts = ApexCharts;
-      return ApexCharts;
     }
+    return window.ApexCharts;
   }
-
   // *********************************      test new heatmap ****************************
 
   private waitForApexCharts(): Promise<void> {
@@ -3478,6 +3476,7 @@ class PhotovoltaicCard extends LitElement {
         }
       }, 100); // Controlla ogni 100ms
     });
+    
   }
 
   private updateDateRange(days: number) {

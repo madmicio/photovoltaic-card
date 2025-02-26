@@ -767,10 +767,20 @@ function battery(state, batteryPercentageState) {
   </svg>
      `;
 }
-function gridPower(gridPower) {
+function gridPower(gridPower, gridEnergyState) {
   return x`
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
-          
+          <style>
+            .toparrow {
+            fill: #ff0;
+            opacity: ${gridEnergyState == "sell" ? "0.7" : "0"};
+            }
+
+            .leftarrow {
+            fill: #ff0;
+            opacity: ${gridEnergyState == "buy" ? "0.7" : "0"};
+            }
+          </style>
           <g id="traliccio" class="opcity76">
             <path class="gridIconColor" d="M76.91,77.4s0,.03,0,.05c0,.16-.03.31-.09.44h13.01v-.49h-12.92Z"/>
             <path class="gridIconColor" d="M122.86,77.45s0-.03,0-.05h-12.53v.49h12.62c-.06-.14-.09-.28-.09-.44"/>
@@ -801,6 +811,8 @@ function gridPower(gridPower) {
               <p>${gridPower}w</p>
             </div>
           </foreignObject>
+              <path id="TopARROW" class="toparrow" d="M103.03,3.05v11.19h4.95l-7.98,7.98-7.98-7.98h4.95V3.05c-5.49,1.36-9.55,6.31-9.55,12.21,0,6.95,5.63,12.58,12.58,12.58s12.58-5.63,12.58-12.58c0-5.91-4.07-10.86-9.55-12.21Z"/>
+              <path id="leftARROW" class="leftarrow" d="M42.4,104.29h-15.85v7.02l-11.31-11.31,11.31-11.31v7.02h15.85c-1.92-7.78-8.94-13.54-17.31-13.54-9.85,0-17.83,7.98-17.83,17.83s7.98,17.83,17.83,17.83c8.37,0,15.39-5.77,17.31-13.54Z"/>
         </svg>
        `;
 }
@@ -824,7 +836,7 @@ function gridPower(gridPower) {
 //            `;
 //   }
 function home(totalPower, pvPercentage, batteryPercentage) {
-  console.log(totalPower, pvPercentage, batteryPercentage);
+  const total100 = Math.min(Number(pvPercentage) + Number(batteryPercentage), 100).toFixed(2);
   return x`
     <svg id="home" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
       <defs>
@@ -868,11 +880,10 @@ function home(totalPower, pvPercentage, batteryPercentage) {
         </linearGradient>
         <linearGradient id="Sfumatura_senza_nome_28" data-name="Sfumatura senza nome 28" x1="26.16" y1="27" x2="174.16" y2="27" gradientUnits="userSpaceOnUse">
           <stop offset="0" stop-color="#51d400"/>
-              <stop offset=".${pvPercentage}" stop-color="#51d400"/>
-              <stop offset=".${pvPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="${pvPercentage + batteryPercentage == 100 ? '#ff9115' : '#2ac0ff'}"/>
-              
+          <stop offset="${Number(pvPercentage) / 100}" stop-color="#51d400"/>
+          <stop offset="${Number(pvPercentage) / 100}" stop-color="#ff9115"/>
+          <stop offset="${Number(total100) / 100}" stop-color="#ff9115"/>
+          <stop offset="${Number(total100) / 100}" stop-color="${Number(total100) >= 100 ? '#ff9115' : '#235adf'}"/>
         </linearGradient>
       </defs>
       <g id="casa">
@@ -900,6 +911,9 @@ function home(totalPower, pvPercentage, batteryPercentage) {
                 </div>
               </foreignObject>
       <rect class="home_meter_st1" x="26.16" y="14.5" width="148" height="25" rx="10" ry="10"/>
+      <g id="topArrow">
+
+
     </svg>
            `;
 }
@@ -1057,6 +1071,7 @@ var styles = i$3`
   .home_st2 {
     fill: url(#home_gradient_1);
   }
+
 
   // ***************fine svg *******************
 
@@ -1809,7 +1824,7 @@ input[type="range"]::-webkit-slider-thumb {
         .grid {
             height:auto;
             width: 100%;
-            background-color: #8ed3f7;
+            background-color: #235adf;
             align-items: center;
             justify-content: center;
             display: flex;
@@ -1916,6 +1931,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this.totalWekkPvProduction = 0;
     this.daysToEvaluate = 7;
     this.disableLeftButtonHeatmap = false;
+    this.gridEnergyState = "neutral";
     this.sensorData = [];
     this.aggregatedData = [];
     this.showMoreElements = false;
@@ -2202,29 +2218,15 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
   }
   // ********************** fine interrogazione singola entità ******************
   render() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
     const verticalCard = this.isVericarlCard();
     const panelMode = this.isPanelMode();
     const cardHeight = Math.round(this.getBoundingClientRect().height);
     if (!verticalCard) {
       this.chartHeight = cardHeight / 2.2;
-      // this.sliderHeight = !verticalCard && panelMode ? (cardHeight / 31.8) : 30;
     }
-    // console.log('sliderRender', this.sliderHeight);
     const pv_nemuber = this.config.entities.length;
-    // const linesSvg = this.shadowRoot.querySelector(
-    //   ".lines-svg"
-    // ) as SVGSVGElement;
     this.cardCardWidth = Math.round(this.getBoundingClientRect().width);
-    // console.log("labelPosition", cardHeight);
-    // // Inizializza le linee SVG solo se necessario
-    // if (
-    //   linesSvg &&
-    //   linesSvg.querySelectorAll("path").length === 0 &&
-    //   this.activeMenu === "home"
-    // ) {
-    //   this.initializeLines();
-    // }
     this.initializeLines();
     // Gestione opzionale di weather_entity
     let weatherObj = null;
@@ -2238,7 +2240,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       console.warn("weather_entity is not configured or not found.");
     }
     // Inizializza i totali
-    let total = 0;
+    let pvTotalEnergy = 0;
     let pvTotal = 0;
     let batteryTotal = 0;
     let gridTotal = 0;
@@ -2251,45 +2253,57 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       pvTotal += convertedPvState;
     });
     // Aggiorna il totale generale
-    total += pvTotal;
-    // Calcola i valori per la griglia
+    pvTotalEnergy += pvTotal;
+    let gridState;
     if ((_c = this.config.grid) === null || _c === void 0 ? void 0 : _c.grid_entity) {
-      gridTotal = ((_d = this.hass.states[this.config.grid.grid_entity]) === null || _d === void 0 ? void 0 : _d.state) ? Math.round(parseFloat(this.hass.states[this.config.grid.grid_entity].state)) || 0 : 0;
+      const inverted = (_d = this.config.grid) === null || _d === void 0 ? void 0 : _d.inverted;
+      if ((_e = this.config.grid) === null || _e === void 0 ? void 0 : _e.sell_energy) {
+        const buy_energy = parseFloat((_f = this.hass.states[this.config.grid.grid_entity]) === null || _f === void 0 ? void 0 : _f.state) || 0;
+        const sellEnergy = parseFloat((_h = this.hass.states[(_g = this.config.grid) === null || _g === void 0 ? void 0 : _g.sell_energy]) === null || _h === void 0 ? void 0 : _h.state) || 0;
+        gridState = buy_energy + sellEnergy;
+        // console.table({buy_energy, sellEnergy, gridState});
+        gridTotal = sellEnergy > 0 ? sellEnergy : gridState;
+        this.gridEnergyState = sellEnergy > 0 ? "sell" : (parseFloat((_j = this.hass.states[this.config.grid.sell_energy]) === null || _j === void 0 ? void 0 : _j.state) || 0) > 0 ? "sell" : "neutral";
+        if (sellEnergy > 0) {
+          this.gridEnergyState = "sell";
+        } else if (buy_energy > 0) {
+          this.gridEnergyState = "buy";
+        } else {
+          this.gridEnergyState = "neutral";
+        }
+        console.log('pkuto');
+      } else {
+        gridState = inverted ? -(parseFloat((_k = this.hass.states[this.config.grid.grid_entity]) === null || _k === void 0 ? void 0 : _k.state) || 0) : parseFloat((_l = this.hass.states[this.config.grid.grid_entity]) === null || _l === void 0 ? void 0 : _l.state) || 0;
+        gridTotal = Math.abs(gridState);
+        this.gridEnergyState = gridState > 0 ? "buy" : gridState < 0 ? "sell" : "neutral";
+        console.log('pippo');
+      }
     }
+    // console.log(gridTotal, this.gridEnergyState);
     // Calcola i valori per la batteria
-    if ((_e = this.config.battery) === null || _e === void 0 ? void 0 : _e.power) {
-      batteryTotal = ((_f = this.hass.states[this.config.battery.power]) === null || _f === void 0 ? void 0 : _f.state) ? Math.round(parseFloat(this.hass.states[this.config.battery.power].state)) || 0 : 0;
+    if ((_m = this.config.battery) === null || _m === void 0 ? void 0 : _m.power) {
+      batteryTotal = ((_o = this.hass.states[this.config.battery.power]) === null || _o === void 0 ? void 0 : _o.state) ? Math.round(parseFloat(this.hass.states[this.config.battery.power].state)) || 0 : 0;
+    }
+    // potenza verso inverter
+    const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
+    let inverterEfficiency = (_p = this.config.inverter.inverter_efficency) !== null && _p !== void 0 ? _p : 0.96;
+    let DcToAcTotal = (_s = (_r = (_q = this.config) === null || _q === void 0 ? void 0 : _q.grid) === null || _r === void 0 ? void 0 : _r.inverter_output) !== null && _s !== void 0 ? _s : totalDcInput * inverterEfficiency;
+    if ((_t = this.config) === null || _t === void 0 ? void 0 : _t.inverter.inverter_output) {
+      inverterEfficiency = totalDcInput > 0 ? DcToAcTotal / totalDcInput : 1;
     }
     // Calcola il totale di potenza
-    const totalPower = total + (batteryTotal > 0 ? batteryTotal : 0) + (gridTotal > 0 ? gridTotal : 0);
-    // console.log(totalPower, total, batteryTotal, gridTotal);
-    // Calcola le percentuali
-    const pvPercentage = totalPower > 0 ? Math.round(pvTotal / totalPower * 100) : 0;
-    const batteryPercentage = totalPower > 0 && batteryTotal > 0 ? Math.round(batteryTotal / totalPower * 100) : 0;
-    // stato %  batteria istantaneo
-    const batteryPercentageNow = (_h = (_g = this.config.battery) === null || _g === void 0 ? void 0 : _g.battery_state) !== null && _h !== void 0 ? _h : "0";
-    const batteryPercentageState = ((_j = this.hass.states[batteryPercentageNow]) === null || _j === void 0 ? void 0 : _j.state) ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0 : 0;
+    const totalPower = Math.round(DcToAcTotal + (this.gridEnergyState == "buy" ? gridTotal : 0));
+    // calcolo percentuali
+    const pvPercentage = Number((pvTotal * inverterEfficiency / totalPower * 100).toFixed(2));
+    const batteryPercentage = Number((batteryTotal * inverterEfficiency / totalPower * 100).toFixed(2));
+    const gridPercentage = this.gridEnergyState == "buy" ? Number((gridTotal / totalPower * 100).toFixed(2)) : 0;
+    // console.log('gridTotal', gridTotal ,'totalPower', totalPower);
+    // console.table({gridTotal, totalPower});
+    // console.log('pvPercentage', pvPercentage, 'batteryPercentage', batteryPercentage, 'gridPercentage', gridPercentage);
+    const batteryPercentageNow = (_v = (_u = this.config.battery) === null || _u === void 0 ? void 0 : _u.battery_state) !== null && _v !== void 0 ? _v : "0";
+    const batteryPercentageState = ((_w = this.hass.states[batteryPercentageNow]) === null || _w === void 0 ? void 0 : _w.state) ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0 : 0;
     // Calcola la riduzione di CO2
     const c02 = parseFloat((this.totalWekkPvProduction * 0.25).toFixed(2));
-    // if (this.config?.grid?.grid_meter && this.gridWeekTotal === null) {
-    //   this.askForEntity(
-    //     this.config.grid.grid_meter,
-    //     8,
-    //     this.config.grid?.unit_of_measurament
-    //   ).then((gridAsk) => {
-    //     console.log('dridAsrk', gridAsk);
-    //     this.gridWeekTotal = gridAsk.totale;
-    //   });
-    // }
-    // if (this.config?.battery?.battery_meter) {
-    //   this.askForEntity(
-    //     this.config.battery.battery_meter,
-    //     8,
-    //     this.config.battery?.unit_of_measurament
-    //   ).then((batteryAsk) => {
-    //     this.batteryWeekTotal = batteryAsk.totale;
-    //   });
-    // }
     // Calcola il consumo totale settimanale
     const totalConsumption = Number(this.totalWekkPvProduction) + Number(this.gridWeekTotal);
     const totalWeekKwhPercentage = totalConsumption > 0 ? this.totalWekkPvProduction / totalConsumption * 100 : 0;
@@ -2499,12 +2513,12 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                                           id="grid-power-direct"
                                           class="element-svg bottom tile tile_vertical"
                                           value="${gridTotal}"
-                                          style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
+                                          style=${`cursor: pointer; ${this.gridEnergyState == "buy" ? `background: linear-gradient(90deg, #235adf 0%, #235adf ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%);` : 'background-color: #2a3948;'}`}
                                           @click="${() => {
         var _a, _b;
         if (this.config.grid.more_elements) {
           this.moreElemetsName = "Grid";
-          this.dynamicFunction = () => gridPower(gridTotal);
+          this.dynamicFunction = () => gridPower(gridTotal, this.gridEnergyState);
           this.dinamicContent = this.config.grid.more_elements;
           this.showMoreElements = true;
         } else {
@@ -2513,7 +2527,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
       }}"
                                         >
-                                          ${gridPower(gridTotal)}
+                                          ${gridPower(gridTotal, this.gridEnergyState)}
                                         </div>
                                       `;
     })() : ""}
@@ -2925,12 +2939,13 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                                       id="grid-power-direct"
                                       class="element-svg bottom tile tile_horizontal"
                                       value="${gridTotal}"
-                                      style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
+                                      style=${`cursor: pointer; ${this.gridEnergyState == "buy" ? `background: linear-gradient(90deg, #235adf 0%, #235adf ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%);` : 'background-color: #2a3948;'}`}
+
                                       @click="${() => {
         var _a, _b;
         if (this.config.grid.more_elements) {
           this.moreElemetsName = "Grid";
-          this.dynamicFunction = () => gridPower(gridTotal);
+          this.dynamicFunction = () => gridPower(gridTotal, this.gridEnergyState);
           this.dinamicContent = this.config.grid.more_elements;
           this.showMoreElements = true;
         } else {
@@ -2939,7 +2954,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
       }}"
                                     >
-                                      ${gridPower(gridTotal)}
+                                      ${gridPower(gridTotal, this.gridEnergyState)}
                                     </div>
                                   `;
     })() : ""}
@@ -3122,7 +3137,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                     <div class="inner_meter">
                       <div
                         class="grid"
-                        style="height:${100 - batteryPercentage - pvPercentage}%"
+                        style="height:${gridPercentage}%"
                       >
                         <ha-icon icon="mdi:factory" class="bar_icon"></ha-icon>
                       </div>
@@ -3752,7 +3767,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       }, (_, i) => casaLineStartX + i * spacing);
       const fragment = document.createDocumentFragment();
       elementsWithCenter.forEach((item, index) => {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f;
         const {
           element,
           rect,
@@ -3775,7 +3790,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         const casaPointY = isBottom ? casaY + casaHeight : casaY;
         const stateValue = parseFloat(element.getAttribute("value") || "0");
         const d = `M ${elementVerticalX} ${line1StartY} L ${elementVerticalX} ${line1EndY} L ${casaPointX} ${line1EndY} L ${casaPointX} ${casaPointY}`;
-        if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.energy_power) {
+        if (!((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.grid) === null || _b === void 0 ? void 0 : _b.hide_energy_line)) {
           const staticLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
           staticLine.setAttribute("d", d);
           staticLine.setAttribute("stroke", "#999");
@@ -3785,9 +3800,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           staticLine.setAttribute("stroke-linecap", "round");
           fragment.appendChild(staticLine);
         }
-        if (element.id === "grid-power-direct" && ((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.grid) === null || _d === void 0 ? void 0 : _d.energy_power)) {
-          const gridEnergyValue = parseFloat(((_e = this.hass.states[this.config.grid.energy_power]) === null || _e === void 0 ? void 0 : _e.state) || "0");
-          if (gridEnergyValue > 0) {
+        if (element.id === "grid-power-direct") {
+          if (this.gridEnergyState == "sell") {
             const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
             glowLine.setAttribute("d", d);
             glowLine.setAttribute("stroke", "rgba(0, 255, 0, 0.6)");
@@ -3804,52 +3818,48 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
             glowLine.appendChild(animate);
             fragment.appendChild(glowLine);
           }
-          if (element.id === "grid-power-direct") {
-            const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile");
-            if (!homeTile) {
-              console.error("Home Tile SVG element not found.");
-              return;
-            }
-            const homeTileRect = homeTile.getBoundingClientRect();
-            const homeTileX = homeTileRect.x - linesSvgRect.x;
-            const homeTileY = homeTileRect.y - linesSvgRect.y;
-            const homeTileHeight = homeTileRect.height;
-            const gridPowerX = elementX;
-            const gridPowerCenterY = elementY + elementHeight / 2;
-            const homeTileXEnd = homeTileX + homeTileRect.width;
-            const homeTileCenterY = homeTileY + homeTileHeight / 2;
-            // Linea statica verso home
-            const staticLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            staticLineHome.setAttribute("x1", gridPowerX.toString());
-            staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
-            staticLineHome.setAttribute("x2", homeTileXEnd.toString());
-            staticLineHome.setAttribute("y2", homeTileCenterY.toString());
-            staticLineHome.setAttribute("stroke", "#999");
-            staticLineHome.setAttribute("stroke-width", "2");
-            staticLineHome.setAttribute("stroke-dasharray", "7,5");
-            staticLineHome.setAttribute("stroke-linecap", "round");
-            linesSvg.appendChild(staticLineHome);
-            if (stateValue > 0) {
-              // Creazione della glowLine
-              const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-              glowLine.setAttribute("x1", gridPowerX.toString()); // Punto iniziale X
-              glowLine.setAttribute("y1", gridPowerCenterY.toString()); // Punto iniziale Y
-              glowLine.setAttribute("x2", homeTileXEnd.toString()); // Punto finale X
-              glowLine.setAttribute("y2", homeTileCenterY.toString()); // Punto finale Y
-              glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)"); // Colore azzurro
-              glowLine.setAttribute("stroke-width", "4"); // Spessore
-              glowLine.setAttribute("stroke-dasharray", "10,15"); // Tratteggio per il bagliore
-              glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-              // Aggiungi l'animazione alla glowLine
-              const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
-              animate.setAttribute("attributeName", "stroke-dashoffset");
-              animate.setAttribute("from", "50"); // Direzione inversa
-              animate.setAttribute("to", "0");
-              animate.setAttribute("dur", "2s");
-              animate.setAttribute("repeatCount", "indefinite");
-              glowLine.appendChild(animate);
-              linesSvg.appendChild(glowLine);
-            }
+          const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile");
+          if (!homeTile) {
+            console.error("Home Tile SVG element not found.");
+            return;
+          }
+          const homeTileRect = homeTile.getBoundingClientRect();
+          const homeTileX = homeTileRect.x - linesSvgRect.x;
+          const homeTileY = homeTileRect.y - linesSvgRect.y;
+          const homeTileHeight = homeTileRect.height;
+          const gridPowerX = elementX;
+          const gridPowerCenterY = elementY + elementHeight / 2;
+          const homeTileXEnd = homeTileX + homeTileRect.width;
+          const homeTileCenterY = homeTileY + homeTileHeight / 2;
+          // Linea statica verso home
+          const staticLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          staticLineHome.setAttribute("x1", gridPowerX.toString());
+          staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
+          staticLineHome.setAttribute("x2", homeTileXEnd.toString());
+          staticLineHome.setAttribute("y2", homeTileCenterY.toString());
+          staticLineHome.setAttribute("stroke", "#999");
+          staticLineHome.setAttribute("stroke-width", "2");
+          staticLineHome.setAttribute("stroke-dasharray", "7,5");
+          staticLineHome.setAttribute("stroke-linecap", "round");
+          linesSvg.appendChild(staticLineHome);
+          if (this.gridEnergyState == "buy") {
+            const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            glowLine.setAttribute("x1", gridPowerX.toString());
+            glowLine.setAttribute("y1", gridPowerCenterY.toString());
+            glowLine.setAttribute("x2", homeTileXEnd.toString());
+            glowLine.setAttribute("y2", homeTileCenterY.toString());
+            glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)");
+            glowLine.setAttribute("stroke-width", "4");
+            glowLine.setAttribute("stroke-dasharray", "10,15");
+            glowLine.setAttribute("stroke-linecap", "round");
+            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animate.setAttribute("attributeName", "stroke-dashoffset");
+            animate.setAttribute("from", "50");
+            animate.setAttribute("to", "0");
+            animate.setAttribute("dur", "2s");
+            animate.setAttribute("repeatCount", "indefinite");
+            glowLine.appendChild(animate);
+            linesSvg.appendChild(glowLine);
           }
         }
         if (element.id === "pv-element" && stateValue > 0) {
@@ -3894,7 +3904,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           glowLine.setAttribute("fill", "none");
           glowLine.setAttribute("stroke-dasharray", "10,40");
           glowLine.setAttribute("stroke-linecap", "round");
-          if (stateValue < 0 || ((_g = (_f = this.config) === null || _f === void 0 ? void 0 : _f.battery) === null || _g === void 0 ? void 0 : _g.energy_to_inverter) > 0) {
+          if (stateValue < 0 || ((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.battery) === null || _d === void 0 ? void 0 : _d.energy_to_inverter) > 0) {
             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
             animate.setAttribute("from", "0");
@@ -3903,7 +3913,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
             animate.setAttribute("repeatCount", "indefinite");
             glowLine.appendChild(animate);
             fragment.appendChild(glowLine);
-          } else if (stateValue > 0 || ((_j = (_h = this.config) === null || _h === void 0 ? void 0 : _h.battery) === null || _j === void 0 ? void 0 : _j.energy_to_inverter) > 0) {
+          } else if (stateValue > 0 || ((_f = (_e = this.config) === null || _e === void 0 ? void 0 : _e.battery) === null || _f === void 0 ? void 0 : _f.energy_to_inverter) > 0) {
             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
             animate.setAttribute("from", "50");
@@ -4146,7 +4156,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       name: serie.name,
       data: this._groupByNearest(serie.data, intervalMs, minTimestamp, maxTimestamp).filter(point => point.y !== null && point.y !== undefined && !isNaN(point.y))
     }));
-    console.log('sensore', this.hass.states['sensor.ftv_pv1_power']);
     const slider = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector('input[type="range"]');
     if (slider) {
       this._updateLabelPosition(slider); // Aggiorna la posizione dell'etichetta

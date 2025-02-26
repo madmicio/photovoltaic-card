@@ -128,6 +128,7 @@ export default css`
     fill: url(#home_gradient_1);
   }
 
+
   // ***************fine svg *******************
 
   @keyframes blinker {
@@ -879,7 +880,7 @@ input[type="range"]::-webkit-slider-thumb {
         .grid {
             height:auto;
             width: 100%;
-            background-color: #8ed3f7;
+            background-color: #235adf;
             align-items: center;
             justify-content: center;
             display: flex;

@@ -114,10 +114,20 @@ export function pvIcon(state) {
      `;
   }
 
-  export function gridPower(gridPower) {
+  export function gridPower(gridPower, gridEnergyState) {
     return html`
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
-          
+          <style>
+            .toparrow {
+            fill: #ff0;
+            opacity: ${gridEnergyState == "sell" ? "0.7" : "0"};
+            }
+
+            .leftarrow {
+            fill: #ff0;
+            opacity: ${gridEnergyState == "buy" ? "0.7" : "0"};
+            }
+          </style>
           <g id="traliccio" class="opcity76">
             <path class="gridIconColor" d="M76.91,77.4s0,.03,0,.05c0,.16-.03.31-.09.44h13.01v-.49h-12.92Z"/>
             <path class="gridIconColor" d="M122.86,77.45s0-.03,0-.05h-12.53v.49h12.62c-.06-.14-.09-.28-.09-.44"/>
@@ -148,6 +158,8 @@ export function pvIcon(state) {
               <p>${gridPower}w</p>
             </div>
           </foreignObject>
+              <path id="TopARROW" class="toparrow" d="M103.03,3.05v11.19h4.95l-7.98,7.98-7.98-7.98h4.95V3.05c-5.49,1.36-9.55,6.31-9.55,12.21,0,6.95,5.63,12.58,12.58,12.58s12.58-5.63,12.58-12.58c0-5.91-4.07-10.86-9.55-12.21Z"/>
+              <path id="leftARROW" class="leftarrow" d="M42.4,104.29h-15.85v7.02l-11.31-11.31,11.31-11.31v7.02h15.85c-1.92-7.78-8.94-13.54-17.31-13.54-9.85,0-17.83,7.98-17.83,17.83s7.98,17.83,17.83,17.83c8.37,0,15.39-5.77,17.31-13.54Z"/>
         </svg>
        `;
   }
@@ -174,7 +186,10 @@ export function pvIcon(state) {
 //   }
 
   export function home(totalPower, pvPercentage, batteryPercentage) {
-    console.log(totalPower, pvPercentage, batteryPercentage );
+
+    const total100 = Math.min((Number(pvPercentage) + Number(batteryPercentage)), 100).toFixed(2);
+
+
     return html`
     <svg id="home" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
       <defs>
@@ -218,11 +233,10 @@ export function pvIcon(state) {
         </linearGradient>
         <linearGradient id="Sfumatura_senza_nome_28" data-name="Sfumatura senza nome 28" x1="26.16" y1="27" x2="174.16" y2="27" gradientUnits="userSpaceOnUse">
           <stop offset="0" stop-color="#51d400"/>
-              <stop offset=".${pvPercentage}" stop-color="#51d400"/>
-              <stop offset=".${pvPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="#ff9115"/>
-              <stop offset=".${pvPercentage + batteryPercentage}" stop-color="${pvPercentage + batteryPercentage == 100 ? '#ff9115': '#2ac0ff'}"/>
-              
+          <stop offset="${Number(pvPercentage) / 100}" stop-color="#51d400"/>
+          <stop offset="${Number(pvPercentage) / 100}" stop-color="#ff9115"/>
+          <stop offset="${Number(total100) / 100}" stop-color="#ff9115"/>
+          <stop offset="${Number(total100) / 100}" stop-color="${Number(total100) >= 100 ? '#ff9115' : '#235adf'}"/>
         </linearGradient>
       </defs>
       <g id="casa">
@@ -250,6 +264,9 @@ export function pvIcon(state) {
                 </div>
               </foreignObject>
       <rect class="home_meter_st1" x="26.16" y="14.5" width="148" height="25" rx="10" ry="10"/>
+      <g id="topArrow">
+
+
     </svg>
            `;
   }

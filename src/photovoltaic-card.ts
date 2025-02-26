@@ -72,7 +72,7 @@ class PhotovoltaicCard extends LitElement {
   private endTime: Date;
   private heatmapObj: any;
   private disableLeftButtonHeatmap: boolean = false;
-
+  private gridEnergyState: string = "neutral";
   private sensorData: any = [];
   private aggregatedData: any = [];
   private showMoreElements: boolean = false;
@@ -505,24 +505,13 @@ class PhotovoltaicCard extends LitElement {
     const cardHeight = Math.round(this.getBoundingClientRect().height);
     if (!verticalCard) {
       this.chartHeight = cardHeight / 2.2;
-      // this.sliderHeight = !verticalCard && panelMode ? (cardHeight / 31.8) : 30;
     }
-    // console.log('sliderRender', this.sliderHeight);
+
     const pv_nemuber = this.config.entities.length;
-    // const linesSvg = this.shadowRoot.querySelector(
-    //   ".lines-svg"
-    // ) as SVGSVGElement;
+
     this.cardCardWidth = Math.round(this.getBoundingClientRect().width);
 
-    // console.log("labelPosition", cardHeight);
-    // // Inizializza le linee SVG solo se necessario
-    // if (
-    //   linesSvg &&
-    //   linesSvg.querySelectorAll("path").length === 0 &&
-    //   this.activeMenu === "home"
-    // ) {
-    //   this.initializeLines();
-    // }
+
     this.initializeLines();
     // Gestione opzionale di weather_entity
     let weatherObj = null;
@@ -543,7 +532,7 @@ class PhotovoltaicCard extends LitElement {
     }
 
     // Inizializza i totali
-    let total = 0;
+    let pvTotalEnergy = 0;
     let pvTotal = 0;
     let batteryTotal = 0;
     let gridTotal = 0;
@@ -567,17 +556,44 @@ class PhotovoltaicCard extends LitElement {
     });
 
     // Aggiorna il totale generale
-    total += pvTotal;
+    pvTotalEnergy += pvTotal;
 
-    // Calcola i valori per la griglia
+    let gridState;
+
     if (this.config.grid?.grid_entity) {
-      gridTotal = this.hass.states[this.config.grid.grid_entity]?.state
-        ? Math.round(
-            parseFloat(this.hass.states[this.config.grid.grid_entity].state)
-          ) || 0
-        : 0;
-    }
+      const inverted = this.config.grid?.inverted;
+      
 
+
+
+      if (this.config.grid?.sell_energy) {
+        const buy_energy: number = parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0;
+        const sellEnergy: number = parseFloat(this.hass.states[this.config.grid?.sell_energy]?.state) || 0;
+
+        gridState = buy_energy + sellEnergy;
+        // console.table({buy_energy, sellEnergy, gridState});
+
+        gridTotal = sellEnergy > 0 ? sellEnergy : gridState;
+        this.gridEnergyState = sellEnergy  > 0 ? "sell" : ((parseFloat(this.hass.states[this.config.grid.sell_energy]?.state) || 0) > 0 ? "sell" : "neutral");
+        if (sellEnergy > 0) {
+          this.gridEnergyState = "sell";
+          } else if (buy_energy > 0) {
+              this.gridEnergyState = "buy";
+          } else {
+              this.gridEnergyState = "neutral";
+          }
+        console.log('pkuto');
+
+      } else {
+        gridState = inverted ? -(parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0) : (parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0);
+        gridTotal = Math.abs(gridState); 
+        this.gridEnergyState = gridState > 0 ? "buy" : (gridState < 0 ? "sell" : "neutral");
+        console.log('pippo');
+      }
+    }
+    // console.log(gridTotal, this.gridEnergyState);
+  
+  
     // Calcola i valori per la batteria
     if (this.config.battery?.power) {
       batteryTotal = this.hass.states[this.config.battery.power]?.state
@@ -587,18 +603,28 @@ class PhotovoltaicCard extends LitElement {
         : 0;
     }
 
-    // Calcola il totale di potenza
-    const totalPower = total + (batteryTotal > 0 ? batteryTotal : 0) + (gridTotal > 0 ? gridTotal : 0);
+    // potenza verso inverter
+    const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
+    
+    let inverterEfficiency = this.config.inverter.inverter_efficency ?? 0.96;
+    let DcToAcTotal = this.config?.grid?.inverter_output ?? totalDcInput * inverterEfficiency;
+    if (this.config?.inverter.inverter_output) {
+      inverterEfficiency = totalDcInput > 0 ? DcToAcTotal / totalDcInput : 1;
+    }
 
-    // console.log(totalPower, total, batteryTotal, gridTotal);
-    // Calcola le percentuali
-    const pvPercentage =
-      totalPower > 0 ? Math.round((pvTotal / totalPower) * 100) : 0;
-    const batteryPercentage =
-      totalPower > 0 && batteryTotal > 0
-        ? Math.round((batteryTotal / totalPower) * 100)
-        : 0;
-    // stato %  batteria istantaneo
+    // Calcola il totale di potenza
+    const totalPower: number = Math.round(DcToAcTotal + (this.gridEnergyState == "buy" ? gridTotal : 0));
+
+
+    // calcolo percentuali
+    const pvPercentage: number = Number(((pvTotal * inverterEfficiency / totalPower) * 100).toFixed(2));
+    const batteryPercentage: number = Number(((batteryTotal * inverterEfficiency / totalPower) * 100).toFixed(2));
+    const gridPercentage: number = this.gridEnergyState == "buy" ? Number(((gridTotal / totalPower) * 100).toFixed(2)) : 0;
+    // console.log('gridTotal', gridTotal ,'totalPower', totalPower);
+    // console.table({gridTotal, totalPower});
+
+    // console.log('pvPercentage', pvPercentage, 'batteryPercentage', batteryPercentage, 'gridPercentage', gridPercentage);
+
     const batteryPercentageNow = this.config.battery?.battery_state ?? "0";
     const batteryPercentageState = this.hass.states[batteryPercentageNow]?.state
       ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0
@@ -607,26 +633,6 @@ class PhotovoltaicCard extends LitElement {
     // Calcola la riduzione di CO2
     const c02 = parseFloat((this.totalWekkPvProduction * 0.25).toFixed(2));
 
-    // if (this.config?.grid?.grid_meter && this.gridWeekTotal === null) {
-    //   this.askForEntity(
-    //     this.config.grid.grid_meter,
-    //     8,
-    //     this.config.grid?.unit_of_measurament
-    //   ).then((gridAsk) => {
-    //     console.log('dridAsrk', gridAsk);
-    //     this.gridWeekTotal = gridAsk.totale;
-    //   });
-    // }
-
-    // if (this.config?.battery?.battery_meter) {
-    //   this.askForEntity(
-    //     this.config.battery.battery_meter,
-    //     8,
-    //     this.config.battery?.unit_of_measurament
-    //   ).then((batteryAsk) => {
-    //     this.batteryWeekTotal = batteryAsk.totale;
-    //   });
-    // }
 
     // Calcola il consumo totale settimanale
     const totalConsumption =
@@ -926,14 +932,17 @@ class PhotovoltaicCard extends LitElement {
                                           id="grid-power-direct"
                                           class="element-svg bottom tile tile_vertical"
                                           value="${gridTotal}"
-                                          style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
-                                          @click="${() => {
+                                          style=${`cursor: pointer; ${this.gridEnergyState == "buy" 
+                                            ?  `background: linear-gradient(90deg, #235adf 0%, #235adf ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%);`
+                                            : 'background-color: #2a3948;'
+                                          }`}
+                                          @click="${() => { 
                                             if (
                                               this.config.grid.more_elements
                                             ) {
                                               this.moreElemetsName = "Grid";
                                               this.dynamicFunction = () =>
-                                                gridPower(gridTotal);
+                                                gridPower(gridTotal, this.gridEnergyState);
                                               this.dinamicContent =
                                                 this.config.grid.more_elements;
                                               this.showMoreElements = true;
@@ -945,7 +954,7 @@ class PhotovoltaicCard extends LitElement {
                                             }
                                           }}"
                                         >
-                                          ${gridPower(gridTotal)}
+                                          ${gridPower(gridTotal, this.gridEnergyState)}
                                         </div>
                                       `;
                                     })()
@@ -1459,12 +1468,16 @@ class PhotovoltaicCard extends LitElement {
                                       id="grid-power-direct"
                                       class="element-svg bottom tile tile_horizontal"
                                       value="${gridTotal}"
-                                      style="cursor: pointer; background: linear-gradient(90deg, #a2d6f5 0%, #a2d6f5 ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%); "
+                                      style=${`cursor: pointer; ${this.gridEnergyState == "buy" 
+                                          ?  `background: linear-gradient(90deg, #235adf 0%, #235adf ${percentage}%, #2a3948 ${percentage}%, #2a3948 100%);`
+                                          : 'background-color: #2a3948;'
+                                        }`}
+
                                       @click="${() => {
                                         if (this.config.grid.more_elements) {
                                           this.moreElemetsName = "Grid";
                                           this.dynamicFunction = () =>
-                                            gridPower(gridTotal);
+                                            gridPower(gridTotal, this.gridEnergyState);
                                           this.dinamicContent =
                                             this.config.grid.more_elements;
                                           this.showMoreElements = true;
@@ -1476,7 +1489,7 @@ class PhotovoltaicCard extends LitElement {
                                         }
                                       }}"
                                     >
-                                      ${gridPower(gridTotal)}
+                                      ${gridPower(gridTotal, this.gridEnergyState)}
                                     </div>
                                   `;
                                 })()
@@ -1662,9 +1675,7 @@ class PhotovoltaicCard extends LitElement {
                     <div class="inner_meter">
                       <div
                         class="grid"
-                        style="height:${100 -
-                        batteryPercentage -
-                        pvPercentage}%"
+                        style="height:${gridPercentage}%"
                       >
                         <ha-icon icon="mdi:factory" class="bar_icon"></ha-icon>
                       </div>
@@ -2437,7 +2448,7 @@ class PhotovoltaicCard extends LitElement {
         const d = `M ${elementVerticalX} ${line1StartY} L ${elementVerticalX} ${line1EndY} L ${casaPointX} ${line1EndY} L ${casaPointX} ${casaPointY}`;
 
         if (
-          this.config?.grid?.energy_power
+          !this.config?.grid?.hide_energy_line
         ) {
           const staticLine = document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -2452,29 +2463,19 @@ class PhotovoltaicCard extends LitElement {
           fragment.appendChild(staticLine);
         }
 
-        if (
-          element.id === "grid-power-direct" &&
-          this.config?.grid?.energy_power
-        ) {
-          const gridEnergyValue = parseFloat(
-            this.hass.states[this.config.grid.energy_power]?.state || "0"
-          );
-          if (gridEnergyValue > 0) {
-            const glowLine = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "path"
-            );
+        
+        if (element.id === "grid-power-direct") {
+       
+          if (this.gridEnergyState == "sell") {
+            const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "path");
             glowLine.setAttribute("d", d);
             glowLine.setAttribute("stroke", "rgba(0, 255, 0, 0.6)");
             glowLine.setAttribute("stroke-width", "4");
             glowLine.setAttribute("fill", "none");
             glowLine.setAttribute("stroke-dasharray", "10,40");
             glowLine.setAttribute("stroke-linecap", "round");
-
-            const animate = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "animate"
-            );
+        
+            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
             animate.setAttribute("from", "0");
             animate.setAttribute("to", "50");
@@ -2483,73 +2484,59 @@ class PhotovoltaicCard extends LitElement {
             glowLine.appendChild(animate);
             fragment.appendChild(glowLine);
           }
-          if (element.id === "grid-power-direct") {
-            const homeTile = this.shadowRoot.querySelector(
-              ".element-svg#home_tile"
-            ) as SVGSVGElement;
-            if (!homeTile) {
-              console.error("Home Tile SVG element not found.");
-              return;
-            }
-
-            const homeTileRect = homeTile.getBoundingClientRect();
-            const homeTileX = homeTileRect.x - linesSvgRect.x;
-            const homeTileY = homeTileRect.y - linesSvgRect.y;
-            const homeTileHeight = homeTileRect.height;
-
-            const gridPowerX = elementX;
-            const gridPowerCenterY = elementY + elementHeight / 2;
-
-            const homeTileXEnd = homeTileX + homeTileRect.width;
-            const homeTileCenterY = homeTileY + homeTileHeight / 2;
-
-            // Linea statica verso home
-            const staticLineHome = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "line"
-            );
-            staticLineHome.setAttribute("x1", gridPowerX.toString());
-            staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
-            staticLineHome.setAttribute("x2", homeTileXEnd.toString());
-            staticLineHome.setAttribute("y2", homeTileCenterY.toString());
-            staticLineHome.setAttribute("stroke", "#999");
-            staticLineHome.setAttribute("stroke-width", "2");
-            staticLineHome.setAttribute("stroke-dasharray", "7,5");
-            staticLineHome.setAttribute("stroke-linecap", "round");
-            linesSvg.appendChild(staticLineHome);
-
-            if (stateValue > 0) {
-              // Creazione della glowLine
-              const glowLine = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "line"
-              );
-              glowLine.setAttribute("x1", gridPowerX.toString()); // Punto iniziale X
-              glowLine.setAttribute("y1", gridPowerCenterY.toString()); // Punto iniziale Y
-              glowLine.setAttribute("x2", homeTileXEnd.toString()); // Punto finale X
-              glowLine.setAttribute("y2", homeTileCenterY.toString()); // Punto finale Y
-
-              glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)"); // Colore azzurro
-              glowLine.setAttribute("stroke-width", "4"); // Spessore
-              glowLine.setAttribute("stroke-dasharray", "10,15"); // Tratteggio per il bagliore
-              glowLine.setAttribute("stroke-linecap", "round"); // Bordi arrotondati
-
-              // Aggiungi l'animazione alla glowLine
-              const animate = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "animate"
-              );
-              animate.setAttribute("attributeName", "stroke-dashoffset");
-              animate.setAttribute("from", "50"); // Direzione inversa
-              animate.setAttribute("to", "0");
-              animate.setAttribute("dur", "2s");
-              animate.setAttribute("repeatCount", "indefinite");
-              glowLine.appendChild(animate);
-
-              linesSvg.appendChild(glowLine);
-            }
+        
+          const homeTile = this.shadowRoot.querySelector(".element-svg#home_tile") as SVGSVGElement;
+          if (!homeTile) {
+            console.error("Home Tile SVG element not found.");
+            return;
+          }
+        
+          const homeTileRect = homeTile.getBoundingClientRect();
+          const homeTileX = homeTileRect.x - linesSvgRect.x;
+          const homeTileY = homeTileRect.y - linesSvgRect.y;
+          const homeTileHeight = homeTileRect.height;
+        
+          const gridPowerX = elementX;
+          const gridPowerCenterY = elementY + elementHeight / 2;
+        
+          const homeTileXEnd = homeTileX + homeTileRect.width;
+          const homeTileCenterY = homeTileY + homeTileHeight / 2;
+        
+          // Linea statica verso home
+          const staticLineHome = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          staticLineHome.setAttribute("x1", gridPowerX.toString());
+          staticLineHome.setAttribute("y1", gridPowerCenterY.toString());
+          staticLineHome.setAttribute("x2", homeTileXEnd.toString());
+          staticLineHome.setAttribute("y2", homeTileCenterY.toString());
+          staticLineHome.setAttribute("stroke", "#999");
+          staticLineHome.setAttribute("stroke-width", "2");
+          staticLineHome.setAttribute("stroke-dasharray", "7,5");
+          staticLineHome.setAttribute("stroke-linecap", "round");
+          linesSvg.appendChild(staticLineHome);
+        
+          if (this.gridEnergyState == "buy") {
+            const glowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            glowLine.setAttribute("x1", gridPowerX.toString());
+            glowLine.setAttribute("y1", gridPowerCenterY.toString());
+            glowLine.setAttribute("x2", homeTileXEnd.toString());
+            glowLine.setAttribute("y2", homeTileCenterY.toString());
+            glowLine.setAttribute("stroke", "rgba(0, 191, 255, 0.8)");
+            glowLine.setAttribute("stroke-width", "4");
+            glowLine.setAttribute("stroke-dasharray", "10,15");
+            glowLine.setAttribute("stroke-linecap", "round");
+        
+            const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animate.setAttribute("attributeName", "stroke-dashoffset");
+            animate.setAttribute("from", "50");
+            animate.setAttribute("to", "0");
+            animate.setAttribute("dur", "2s");
+            animate.setAttribute("repeatCount", "indefinite");
+            glowLine.appendChild(animate);
+        
+            linesSvg.appendChild(glowLine);
           }
         }
+        
 
         if (element.id === "pv-element" && stateValue > 0) {
           const glowLine = document.createElementNS(
@@ -2955,7 +2942,6 @@ class PhotovoltaicCard extends LitElement {
         (point) => point.y !== null && point.y !== undefined && !isNaN(point.y)
       ),
     }));
-    console.log('sensore',this.hass.states['sensor.ftv_pv1_power']);
 
     const slider = this.shadowRoot?.querySelector(
       'input[type="range"]'

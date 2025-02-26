@@ -746,14 +746,14 @@ function pvIcon(state) {
         </svg>
     `;
 }
-function battery(state, batteryPercentageState) {
+function battery(state, batteryPercentageState, batterMode) {
   return x`
 <svg id="Battery" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
   <defs>
     <style>
       .battBackground {
         fill: ${batteryPercentageState > 23 ? '#009245' : 'red'};
-        ${state < 0 ? 'animation: slide-in-out 2s infinite;' : ' '}
+        ${batterMode == "discharge" && state != 0 ? 'animation: slide-in-out 2s infinite;' : ' '}
     </style>
     <linearGradient id="Sfumatura_icon" data-name="Sfumatura icon" x1="5.79" y1="-680" x2="5.79" y2="-560" gradientTransform="translate(-520 80) rotate(90)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e7dfdc"/>
@@ -1932,6 +1932,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     this.daysToEvaluate = 7;
     this.disableLeftButtonHeatmap = false;
     this.gridEnergyState = "neutral";
+    this.batterMode = "neutral";
     this.sensorData = [];
     this.aggregatedData = [];
     this.showMoreElements = false;
@@ -2218,7 +2219,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
   }
   // ********************** fine interrogazione singola entità ******************
   render() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
     const verticalCard = this.isVericarlCard();
     const panelMode = this.isPanelMode();
     const cardHeight = Math.round(this.getBoundingClientRect().height);
@@ -2271,7 +2272,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         } else {
           this.gridEnergyState = "neutral";
         }
-        console.log('pkuto');
       } else {
         gridState = inverted ? -(parseFloat((_k = this.hass.states[this.config.grid.grid_entity]) === null || _k === void 0 ? void 0 : _k.state) || 0) : parseFloat((_l = this.hass.states[this.config.grid.grid_entity]) === null || _l === void 0 ? void 0 : _l.state) || 0;
         gridTotal = Math.abs(gridState);
@@ -2282,13 +2282,30 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     // console.log(gridTotal, this.gridEnergyState);
     // Calcola i valori per la batteria
     if ((_m = this.config.battery) === null || _m === void 0 ? void 0 : _m.power) {
-      batteryTotal = ((_o = this.hass.states[this.config.battery.power]) === null || _o === void 0 ? void 0 : _o.state) ? Math.round(parseFloat(this.hass.states[this.config.battery.power].state)) || 0 : 0;
+      const batteryPower = Math.round(parseFloat(this.hass.states[this.config.battery.power].state));
+      // let batteryPower;
+      if ((_p = (_o = this.config) === null || _o === void 0 ? void 0 : _o.battery) === null || _p === void 0 ? void 0 : _p.battery_to_inverter) {
+        const batteryToInverter = Math.round(this.hass.states[this.config.battery.battery_to_inverter].state);
+        if (batteryToInverter > 0) {
+          this.batterMode = "discharge";
+          batteryTotal = batteryToInverter;
+        } else if (batteryPower > 0) {
+          this.batterMode = "charge";
+          batteryTotal = batteryPower;
+        } else {
+          this.gridEnergyState = "neutral";
+        }
+        console.log(this.batterMode, batteryToInverter, batteryTotal);
+      } else {
+        this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
+        batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
+      }
     }
     // potenza verso inverter
     const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
-    let inverterEfficiency = (_p = this.config.inverter.inverter_efficency) !== null && _p !== void 0 ? _p : 0.96;
-    let DcToAcTotal = (_s = (_r = (_q = this.config) === null || _q === void 0 ? void 0 : _q.grid) === null || _r === void 0 ? void 0 : _r.inverter_output) !== null && _s !== void 0 ? _s : totalDcInput * inverterEfficiency;
-    if ((_t = this.config) === null || _t === void 0 ? void 0 : _t.inverter.inverter_output) {
+    let inverterEfficiency = (_q = this.config.inverter.inverter_efficency) !== null && _q !== void 0 ? _q : 0.96;
+    let DcToAcTotal = (_t = (_s = (_r = this.config) === null || _r === void 0 ? void 0 : _r.grid) === null || _s === void 0 ? void 0 : _s.inverter_output) !== null && _t !== void 0 ? _t : totalDcInput * inverterEfficiency;
+    if ((_u = this.config) === null || _u === void 0 ? void 0 : _u.inverter.inverter_output) {
       inverterEfficiency = totalDcInput > 0 ? DcToAcTotal / totalDcInput : 1;
     }
     // Calcola il totale di potenza
@@ -2300,8 +2317,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     // console.log('gridTotal', gridTotal ,'totalPower', totalPower);
     // console.table({gridTotal, totalPower});
     // console.log('pvPercentage', pvPercentage, 'batteryPercentage', batteryPercentage, 'gridPercentage', gridPercentage);
-    const batteryPercentageNow = (_v = (_u = this.config.battery) === null || _u === void 0 ? void 0 : _u.battery_state) !== null && _v !== void 0 ? _v : "0";
-    const batteryPercentageState = ((_w = this.hass.states[batteryPercentageNow]) === null || _w === void 0 ? void 0 : _w.state) ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0 : 0;
+    const batteryPercentageNow = (_w = (_v = this.config.battery) === null || _v === void 0 ? void 0 : _v.battery_state) !== null && _w !== void 0 ? _w : "0";
+    const batteryPercentageState = ((_x = this.hass.states[batteryPercentageNow]) === null || _x === void 0 ? void 0 : _x.state) ? parseInt(this.hass.states[batteryPercentageNow].state, 10) || 0 : 0;
     // Calcola la riduzione di CO2
     const c02 = parseFloat((this.totalWekkPvProduction * 0.25).toFixed(2));
     // Calcola il consumo totale settimanale
@@ -2466,16 +2483,16 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                               >
                                 ${this.config.battery ? (() => {
       return x`
-                                        <div
-                                          id="battery"
-                                          class="element-svg bottom tile tile_vertical"
-                                          value="${batteryTotal}"
-                                          style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal < 0 ? "animation: circular-border 2s infinite;" : ""}  "
-                                          @click="${() => {
+                                    <div
+                                      id="battery"
+                                      class="element-svg bottom tile tile_horizontal"
+                                      value="${batteryTotal}"
+                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${this.batterMode == "discharge" ? "animation: circular-border 2s infinite;" : ""}  "
+                                      @click="${() => {
         var _a, _b, _c, _d;
         if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.battery) === null || _b === void 0 ? void 0 : _b.more_elements) {
           this.moreElemetsName = "Battery";
-          this.dynamicFunction = () => battery(batteryTotal, batteryPercentageState);
+          this.dynamicFunction = () => battery(batteryTotal, batteryPercentageState, this.batterMode);
           this.dinamicContent = this.config.battery.more_elements;
           this.showMoreElements = true;
         } else {
@@ -2483,8 +2500,8 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           this._moreinfo((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.battery) === null || _d === void 0 ? void 0 : _d.power);
         }
       }}"
-                                        >
-                                          ${battery(batteryTotal, batteryPercentageState)}
+                                    >
+                                          ${battery(batteryTotal, batteryPercentageState, this.batterMode)}
                                         </div>
                                       `;
     })() : ""}
@@ -2896,12 +2913,12 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
                                       id="battery"
                                       class="element-svg bottom tile tile_horizontal"
                                       value="${batteryTotal}"
-                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal < 0 ? "animation: circular-border 2s infinite;" : ""}  "
+                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${this.batterMode == "discharge" ? "animation: circular-border 2s infinite;" : ""}  "
                                       @click="${() => {
         var _a, _b, _c, _d;
         if ((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.battery) === null || _b === void 0 ? void 0 : _b.more_elements) {
           this.moreElemetsName = "Battery";
-          this.dynamicFunction = () => battery(batteryTotal, batteryPercentageState);
+          this.dynamicFunction = () => battery(batteryTotal, batteryPercentageState, this.batterMode);
           this.dinamicContent = this.config.battery.more_elements;
           this.showMoreElements = true;
         } else {
@@ -2910,7 +2927,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
       }}"
                                     >
-                                      ${battery(batteryTotal, batteryPercentageState)}
+                                      ${battery(batteryTotal, batteryPercentageState, this.batterMode)}
                                     </div>
                                   `;
     })() : ""}
@@ -3767,7 +3784,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
       }, (_, i) => casaLineStartX + i * spacing);
       const fragment = document.createDocumentFragment();
       elementsWithCenter.forEach((item, index) => {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         const {
           element,
           rect,
@@ -3904,7 +3921,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
           glowLine.setAttribute("fill", "none");
           glowLine.setAttribute("stroke-dasharray", "10,40");
           glowLine.setAttribute("stroke-linecap", "round");
-          if (stateValue < 0 || ((_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.battery) === null || _d === void 0 ? void 0 : _d.energy_to_inverter) > 0) {
+          if (this.batterMode == "discharge") {
             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
             animate.setAttribute("from", "0");
@@ -3913,7 +3930,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
             animate.setAttribute("repeatCount", "indefinite");
             glowLine.appendChild(animate);
             fragment.appendChild(glowLine);
-          } else if (stateValue > 0 || ((_f = (_e = this.config) === null || _e === void 0 ? void 0 : _e.battery) === null || _f === void 0 ? void 0 : _f.energy_to_inverter) > 0) {
+          } else if (this.batterMode == "charge") {
             const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
             animate.setAttribute("attributeName", "stroke-dashoffset");
             animate.setAttribute("from", "50");

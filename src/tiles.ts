@@ -92,14 +92,14 @@ export function pvIcon(state) {
   
 
 
-  export function battery(state, batteryPercentageState) {
+  export function battery(state, batteryPercentageState, batterMode) {
     return html`
 <svg id="Battery" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
   <defs>
     <style>
       .battBackground {
         fill: ${batteryPercentageState > 23 ? '#009245' : 'red'};
-        ${state < 0  ? 'animation: slide-in-out 2s infinite;' : ' '}
+        ${batterMode == "discharge" && state != 0 ? 'animation: slide-in-out 2s infinite;' : ' '}
     </style>
     <linearGradient id="Sfumatura_icon" data-name="Sfumatura icon" x1="5.79" y1="-680" x2="5.79" y2="-560" gradientTransform="translate(-520 80) rotate(90)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e7dfdc"/>

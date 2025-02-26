@@ -73,6 +73,7 @@ class PhotovoltaicCard extends LitElement {
   private heatmapObj: any;
   private disableLeftButtonHeatmap: boolean = false;
   private gridEnergyState: string = "neutral";
+  private batterMode: string = "neutral";
   private sensorData: any = [];
   private aggregatedData: any = [];
   private showMoreElements: boolean = false;
@@ -559,14 +560,9 @@ class PhotovoltaicCard extends LitElement {
     pvTotalEnergy += pvTotal;
 
     let gridState;
-
     if (this.config.grid?.grid_entity) {
       const inverted = this.config.grid?.inverted;
-      
-
-
-
-      if (this.config.grid?.sell_energy) {
+    if (this.config.grid?.sell_energy) {
         const buy_energy: number = parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0;
         const sellEnergy: number = parseFloat(this.hass.states[this.config.grid?.sell_energy]?.state) || 0;
 
@@ -582,8 +578,6 @@ class PhotovoltaicCard extends LitElement {
           } else {
               this.gridEnergyState = "neutral";
           }
-        console.log('pkuto');
-
       } else {
         gridState = inverted ? -(parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0) : (parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0);
         gridTotal = Math.abs(gridState); 
@@ -595,13 +589,32 @@ class PhotovoltaicCard extends LitElement {
   
   
     // Calcola i valori per la batteria
-    if (this.config.battery?.power) {
-      batteryTotal = this.hass.states[this.config.battery.power]?.state
-        ? Math.round(
-            parseFloat(this.hass.states[this.config.battery.power].state)
-          ) || 0
-        : 0;
+     if (this.config.battery?.power) {
+      const batteryPower =  Math.round(parseFloat(this.hass.states[this.config.battery.power].state));  
+      
+      // let batteryPower;
+      
+
+      if (this.config?.battery?.battery_to_inverter) {
+        const batteryToInverter =  Math.round(this.hass.states[this.config.battery.battery_to_inverter].state);
+        if (batteryToInverter > 0) {
+          this.batterMode = "discharge";
+          batteryTotal = batteryToInverter;
+          } else if (batteryPower > 0) {
+            this.batterMode = "charge";
+            batteryTotal = batteryPower;
+          } else {
+              this.gridEnergyState = "neutral";
+          }
+          console.log(this.batterMode, batteryToInverter, batteryTotal);
+      } else {
+        this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
+        batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
+      }
+      
     }
+    
+
 
     // potenza verso inverter
     const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
@@ -861,39 +874,39 @@ class PhotovoltaicCard extends LitElement {
                                 ${this.config.battery
                                   ? (() => {
                                       return html`
-                                        <div
-                                          id="battery"
-                                          class="element-svg bottom tile tile_vertical"
-                                          value="${batteryTotal}"
-                                          style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal <
-                                          0
-                                            ? "animation: circular-border 2s infinite;"
-                                            : ""}  "
-                                          @click="${() => {
-                                            if (
-                                              this.config?.battery
-                                                ?.more_elements
-                                            ) {
-                                              this.moreElemetsName = "Battery";
-                                              this.dynamicFunction = () =>
-                                                battery(
-                                                  batteryTotal,
-                                                  batteryPercentageState
-                                                );
-                                              this.dinamicContent =
-                                                this.config.battery.more_elements;
-                                              this.showMoreElements = true;
-                                            } else {
-                                              // Se more_elements non esiste, esegui this._moreinfo(entityId)
-                                              this._moreinfo(
-                                                this.config?.battery?.power
-                                              );
-                                            }
-                                          }}"
-                                        >
+                                    <div
+                                      id="battery"
+                                      class="element-svg bottom tile tile_horizontal"
+                                      value="${batteryTotal}"
+                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${this.batterMode == "discharge"
+                                        ? "animation: circular-border 2s infinite;"
+                                        : ""}  "
+                                      @click="${() => {
+                                        if (
+                                          this.config?.battery?.more_elements
+                                        ) {
+                                          this.moreElemetsName = "Battery";
+                                          this.dynamicFunction = () =>
+                                            battery(
+                                              batteryTotal,
+                                              batteryPercentageState,
+                                              this.batterMode
+                                            );
+                                          this.dinamicContent =
+                                            this.config.battery.more_elements;
+                                          this.showMoreElements = true;
+                                        } else {
+                                          // Se more_elements non esiste, esegui this._moreinfo(entityId)
+                                          this._moreinfo(
+                                            this.config?.battery?.power
+                                          );
+                                        }
+                                      }}"
+                                    >
                                           ${battery(
                                             batteryTotal,
-                                            batteryPercentageState
+                                            batteryPercentageState,
+                                            this.batterMode
                                           )}
                                         </div>
                                       `;
@@ -1405,8 +1418,7 @@ class PhotovoltaicCard extends LitElement {
                                       id="battery"
                                       class="element-svg bottom tile tile_horizontal"
                                       value="${batteryTotal}"
-                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${batteryTotal <
-                                      0
+                                      style="cursor: pointer; background-color: #b95618; border: 2px solid transparent; ${this.batterMode == "discharge"
                                         ? "animation: circular-border 2s infinite;"
                                         : ""}  "
                                       @click="${() => {
@@ -1417,7 +1429,8 @@ class PhotovoltaicCard extends LitElement {
                                           this.dynamicFunction = () =>
                                             battery(
                                               batteryTotal,
-                                              batteryPercentageState
+                                              batteryPercentageState,
+                                              this.batterMode
                                             );
                                           this.dinamicContent =
                                             this.config.battery.more_elements;
@@ -1432,7 +1445,8 @@ class PhotovoltaicCard extends LitElement {
                                     >
                                       ${battery(
                                         batteryTotal,
-                                        batteryPercentageState
+                                        batteryPercentageState,
+                                        this.batterMode 
                                       )}
                                     </div>
                                   `;
@@ -2598,7 +2612,7 @@ class PhotovoltaicCard extends LitElement {
           glowLine.setAttribute("stroke-dasharray", "10,40");
           glowLine.setAttribute("stroke-linecap", "round");
 
-          if (stateValue < 0 || this.config?.battery?.energy_to_inverter > 0) {
+          if (this.batterMode == "discharge") {
             const animate = document.createElementNS(
               "http://www.w3.org/2000/svg",
               "animate"
@@ -2610,10 +2624,7 @@ class PhotovoltaicCard extends LitElement {
             animate.setAttribute("repeatCount", "indefinite");
             glowLine.appendChild(animate);
             fragment.appendChild(glowLine);
-          } else if (
-            stateValue > 0 ||
-            this.config?.battery?.energy_to_inverter > 0
-          ) {
+          } else if (this.batterMode == "charge") {
             const animate = document.createElementNS(
               "http://www.w3.org/2000/svg",
               "animate"

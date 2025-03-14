@@ -608,6 +608,7 @@ class PhotovoltaicCard extends LitElement {
           }
           console.log(this.batterMode, batteryToInverter, batteryTotal);
       } else {
+        console.table(batteryPower);
         this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
         batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
       }
@@ -617,7 +618,7 @@ class PhotovoltaicCard extends LitElement {
 
 
     // potenza verso inverter
-    const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
+    const totalDcInput = Math.round(this.batterMode == "discharge" ? pvTotalEnergy : batteryTotal + pvTotalEnergy);
     
     let inverterEfficiency = this.config.inverter.inverter_efficency ?? 0.96;
     let DcToAcTotal = this.config?.grid?.inverter_output ?? totalDcInput * inverterEfficiency;

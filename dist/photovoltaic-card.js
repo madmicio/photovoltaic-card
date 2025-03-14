@@ -2297,12 +2297,13 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
         console.log(this.batterMode, batteryToInverter, batteryTotal);
       } else {
+        console.table(batteryPower);
         this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
         batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
       }
     }
     // potenza verso inverter
-    const totalDcInput = Math.round(batteryTotal + pvTotalEnergy);
+    const totalDcInput = Math.round(this.batterMode == "discharge" ? pvTotalEnergy : batteryTotal + pvTotalEnergy);
     let inverterEfficiency = (_q = this.config.inverter.inverter_efficency) !== null && _q !== void 0 ? _q : 0.96;
     let DcToAcTotal = (_t = (_s = (_r = this.config) === null || _r === void 0 ? void 0 : _r.grid) === null || _s === void 0 ? void 0 : _s.inverter_output) !== null && _t !== void 0 ? _t : totalDcInput * inverterEfficiency;
     if ((_u = this.config) === null || _u === void 0 ? void 0 : _u.inverter.inverter_output) {

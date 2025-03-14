@@ -2276,7 +2276,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         gridState = inverted ? -(parseFloat((_k = this.hass.states[this.config.grid.grid_entity]) === null || _k === void 0 ? void 0 : _k.state) || 0) : parseFloat((_l = this.hass.states[this.config.grid.grid_entity]) === null || _l === void 0 ? void 0 : _l.state) || 0;
         gridTotal = Math.abs(gridState);
         this.gridEnergyState = gridState > 0 ? "buy" : gridState < 0 ? "sell" : "neutral";
-        console.log('pippo');
       }
     }
     // console.log(gridTotal, this.gridEnergyState);
@@ -2297,7 +2296,6 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
         }
         console.log(this.batterMode, batteryToInverter, batteryTotal);
       } else {
-        console.table(batteryPower);
         this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
         batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
       }

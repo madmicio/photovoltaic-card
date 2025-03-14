@@ -582,7 +582,6 @@ class PhotovoltaicCard extends LitElement {
         gridState = inverted ? -(parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0) : (parseFloat(this.hass.states[this.config.grid.grid_entity]?.state) || 0);
         gridTotal = Math.abs(gridState); 
         this.gridEnergyState = gridState > 0 ? "buy" : (gridState < 0 ? "sell" : "neutral");
-        console.log('pippo');
       }
     }
     // console.log(gridTotal, this.gridEnergyState);
@@ -608,7 +607,6 @@ class PhotovoltaicCard extends LitElement {
           }
           console.log(this.batterMode, batteryToInverter, batteryTotal);
       } else {
-        console.table(batteryPower);
         this.batterMode = batteryPower > 0 ? 'charge' : 'discharge';
         batteryTotal = batteryPower > 0 ? batteryPower : -batteryPower;
       }

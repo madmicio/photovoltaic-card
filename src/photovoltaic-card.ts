@@ -630,7 +630,7 @@ class PhotovoltaicCard extends LitElement {
 
     // calcolo percentuali
     const pvPercentage: number = Number(((pvTotal * inverterEfficiency / totalPower) * 100).toFixed(2));
-    const batteryPercentage: number = Number(((batteryTotal * inverterEfficiency / totalPower) * 100).toFixed(2));
+    const batteryPercentage: number = this.batterMode == "charge" ? Number(((batteryTotal * inverterEfficiency / totalPower) * 100).toFixed(2)) : 0;
     const gridPercentage: number = this.gridEnergyState == "buy" ? Number(((gridTotal / totalPower) * 100).toFixed(2)) : 0;
     // console.log('gridTotal', gridTotal ,'totalPower', totalPower);
     // console.table({gridTotal, totalPower});

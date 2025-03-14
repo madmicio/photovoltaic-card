@@ -2311,7 +2311,7 @@ let PhotovoltaicCard = PhotovoltaicCard_1 = class PhotovoltaicCard extends r$1 {
     const totalPower = Math.round(DcToAcTotal + (this.gridEnergyState == "buy" ? gridTotal : 0));
     // calcolo percentuali
     const pvPercentage = Number((pvTotal * inverterEfficiency / totalPower * 100).toFixed(2));
-    const batteryPercentage = Number((batteryTotal * inverterEfficiency / totalPower * 100).toFixed(2));
+    const batteryPercentage = this.batterMode == "charge" ? Number((batteryTotal * inverterEfficiency / totalPower * 100).toFixed(2)) : 0;
     const gridPercentage = this.gridEnergyState == "buy" ? Number((gridTotal / totalPower * 100).toFixed(2)) : 0;
     // console.log('gridTotal', gridTotal ,'totalPower', totalPower);
     // console.table({gridTotal, totalPower});
